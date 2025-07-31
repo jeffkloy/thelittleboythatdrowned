@@ -694,7 +694,7 @@ header h1 {
 @media (min-width: 1024px) {
   .layout {
     display: grid;
-    grid-template-columns: 320px 1fr;
+    grid-template-columns: 33% 1fr;
     gap: 0;
   }
   /* On large screens, nav becomes a sidebar */
