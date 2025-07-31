@@ -2,45 +2,81 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    >
     <title>The Little Boy That Drowned</title>
     <meta name="description" content="A poetry collection of love, heartbreak, and inherent depression">
+    <!-- Performance hints -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Preload CSS to minimize render-blocking -->
+    <link rel="preload" as="style" href="styles.css">
+    <!-- Keep CSS first to avoid FOUC; Google Fonts loaded inside CSS via @import -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Ambient floating particles -->
-    <div class="particles" aria-hidden="true">
-        <div class="particle" style="left: 10%; animation-delay: 0s; width: 3px; height: 3px;"></div>
-        <div class="particle" style="left: 20%; animation-delay: 3s; width: 2px; height: 2px;"></div>
-        <div class="particle" style="left: 30%; animation-delay: 6s; width: 4px; height: 4px;"></div>
-        <div class="particle" style="left: 40%; animation-delay: 9s; width: 2px; height: 2px;"></div>
-        <div class="particle" style="left: 50%; animation-delay: 12s; width: 3px; height: 3px;"></div>
-        <div class="particle" style="left: 60%; animation-delay: 15s; width: 2px; height: 2px;"></div>
-        <div class="particle" style="left: 70%; animation-delay: 18s; width: 4px; height: 4px;"></div>
-        <div class="particle" style="left: 80%; animation-delay: 21s; width: 3px; height: 3px;"></div>
-        <div class="particle" style="left: 90%; animation-delay: 24s; width: 2px; height: 2px;"></div>
-    </div>
-    
-    <div class="container">
-        <header role="banner">
-            <h1>The Little Boy That Drowned</h1>
-            <p class="subtitle">A poetry collection of love, heartbreak, and inherent depression</p>
-        </header>
-        
-        <nav class="poem-nav" role="navigation" aria-label="Poem selection">
-            <h2>Poems</h2>
-            <ul id="poem-list" class="poem-list" role="list">
-                <!-- Poem titles will be loaded here -->
-            </ul>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Layout wrapper to enable sidebar at large screens -->
+    <div class="layout">
+      <!-- Site header with mobile nav -->
+      <header class="site-header" role="banner">
+        <div class="site-header__inner">
+          <div class="brand">
+            <h1 class="brand__title">The Little Boy That Drowned</h1>
+            <p class="brand__subtitle">A poetry collection of love, heartbreak, and inherent depression</p>
+          </div>
+
+          <button
+            class="nav-toggle"
+            aria-controls="site-nav"
+            aria-expanded="false"
+          >
+            <span class="visually-hidden">Menu</span>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+        </div>
+
+        <nav id="site-nav" class="site-nav" role="navigation" aria-label="Primary">
+          <h2 class="site-nav__heading">Poems</h2>
+          <ul id="poem-list" class="poem-list" role="list">
+            <!-- Poem titles will be loaded here -->
+          </ul>
         </nav>
-        
-        <main class="poem-content" role="main">
-            <article id="poem-display" class="poem-display" aria-live="polite">
-                <p class="welcome-message">Select a poem from the list to begin your journey</p>
-            </article>
-        </main>
+      </header>
+
+      <!-- Ambient floating particles -->
+      <div class="particles" aria-hidden="true">
+          <!-- particles positions and delays controlled by CSS, no inline styles -->
+          <div class="particle particle--s p-1"></div>
+          <div class="particle particle--xs p-2"></div>
+          <div class="particle particle--m p-3"></div>
+          <div class="particle particle--xs p-4"></div>
+          <div class="particle particle--s p-5"></div>
+          <div class="particle particle--xs p-6"></div>
+          <div class="particle particle--m p-7"></div>
+          <div class="particle particle--s p-8"></div>
+          <div class="particle particle--xs p-9"></div>
+      </div>
+
+      <main id="main" class="poem-content" role="main">
+        <article id="poem-display" class="poem-display" aria-live="polite">
+          <p class="welcome-message">Select a poem from the list to begin your journey</p>
+        </article>
+      </main>
     </div>
-    
-    <script src="script.js"></script>
+
+    <footer class="site-footer">
+      <p class="site-footer__text">© <span id="year"></span> The Little Boy That Drowned</p>
+    </footer>
+
+    <!-- Defer non-critical scripts -->
+    <script src="script.js" defer></script>
+    <!-- Preload next likely poem file list (poems.json) if present -->
+    <link rel="prefetch" href="poetry/poems.json" as="fetch" crossorigin>
 </body>
 </html>

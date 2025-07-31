@@ -4,6 +4,10 @@ let poems = [];
 // DOM elements
 const poemList = document.getElementById('poem-list');
 const poemDisplay = document.getElementById('poem-display');
+// New: nav toggle for mobile navigation and year in footer
+let navToggleBtn;
+let siteNav;
+let yearEl;
 
 // Function to fetch the list of poems from the poetry directory
 async function fetchPoemList() {
@@ -144,12 +148,16 @@ function createNavigation() {
         const a = document.createElement('a');
         a.href = '#';
         a.textContent = getCleanTitle(filename);
-        a.setAttribute('role', 'button');
         a.setAttribute('aria-label', `Read poem: ${getCleanTitle(filename)}`);
         
         a.addEventListener('click', (e) => {
             e.preventDefault();
-            loadPoem(filename, e.target);
+            loadPoem(filename, e.currentTarget);
+            // Close mobile nav after selection for better UX
+            if (siteNav && window.matchMedia('(max-width: 767px)').matches) {
+              siteNav.removeAttribute('data-open');
+              if (navToggleBtn) navToggleBtn.setAttribute('aria-expanded', 'false');
+            }
         });
         
         li.appendChild(a);
@@ -159,6 +167,40 @@ function createNavigation() {
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', async () => {
+    // Cache new elements
+    navToggleBtn = document.querySelector('.nav-toggle');
+    siteNav = document.getElementById('site-nav');
+    yearEl = document.getElementById('year');
+
+    // Footer year
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Setup nav toggle behavior (mobile)
+    if (navToggleBtn && siteNav) {
+      navToggleBtn.addEventListener('click', () => {
+        const isOpen = siteNav.getAttribute('data-open') === 'true';
+        if (isOpen) {
+          siteNav.removeAttribute('data-open');
+          navToggleBtn.setAttribute('aria-expanded', 'false');
+        } else {
+          siteNav.setAttribute('data-open', 'true');
+          navToggleBtn.setAttribute('aria-expanded', 'true');
+          // manage focus for a11y: focus first link when opened
+          const firstLink = siteNav.querySelector('a');
+          if (firstLink) firstLink.focus();
+        }
+      });
+
+      // Close nav on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && siteNav.getAttribute('data-open') === 'true') {
+          siteNav.removeAttribute('data-open');
+          navToggleBtn.setAttribute('aria-expanded', 'false');
+          navToggleBtn.focus();
+        }
+      });
+    }
+
     // Add initial opacity transition to poem display
     poemDisplay.style.transition = 'opacity 0.3s ease-in-out';
     
@@ -182,7 +224,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 if (firstLink) {
                     firstLink.click();
                 }
-            }, 500);
+            }, 300);
         } else {
             // No poems found
             poemList.innerHTML = '<li class="error">No poems found. Please run generate_poem_list.py to create poems.json</li>';
@@ -193,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         poemList.innerHTML = '<li class="error">Error loading poem list</li>';
     }
     
-    // Add keyboard navigation
+    // Add keyboard navigation for poem list
     document.addEventListener('keydown', (e) => {
         const activeLink = document.querySelector('.poem-list a.active');
         if (!activeLink) return;
