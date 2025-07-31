@@ -512,6 +512,131 @@ header h1 {
 .poem-text p:nth-child(odd) { animation-delay: 0.35s; }
 .poem-text p:nth-child(even){ animation-delay: 0.45s; }
 
+/* Content header with toggle */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-m);
+}
+
+.view-toggle {
+  display: flex;
+  gap: var(--space-xs);
+  background: rgba(42, 42, 42, 0.3);
+  padding: 4px;
+  border-radius: 8px;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--color-muted);
+  font-family: var(--font-sans);
+  font-size: var(--fs-300);
+  padding: var(--space-xs) var(--space-m);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  position: relative;
+}
+
+.toggle-btn:hover {
+  color: var(--color-text);
+}
+
+.toggle-btn.active {
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 500;
+}
+
+/* Analysis text styling */
+.analysis-text {
+  font-family: var(--font-sans);
+  font-size: var(--fs-400);
+  line-height: 1.8;
+  color: var(--color-text);
+  opacity: 0;
+  animation: fadeInUp 0.8s forwards;
+  animation-delay: 0.25s;
+}
+
+.analysis-text h2 {
+  font-size: var(--fs-600);
+  font-weight: 600;
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-m);
+  color: var(--color-text);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: var(--space-xs);
+}
+
+.analysis-text h3 {
+  font-size: var(--fs-500);
+  font-weight: 500;
+  margin-top: var(--space-l);
+  margin-bottom: var(--space-s);
+  color: var(--color-accent);
+}
+
+.analysis-text p {
+  margin-bottom: var(--space-m);
+}
+
+.analysis-text ul {
+  margin-left: var(--space-m);
+  margin-bottom: var(--space-m);
+  list-style-type: none;
+}
+
+.analysis-text li {
+  position: relative;
+  padding-left: var(--space-m);
+  margin-bottom: var(--space-xs);
+}
+
+.analysis-text li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+.analysis-text strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.analysis-text em {
+  font-style: italic;
+  opacity: 0.9;
+}
+
+/* Mobile styles for content header */
+@media (max-width: 480px) {
+  .content-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .content-header h2 {
+    margin-bottom: var(--space-s);
+    font-size: var(--fs-600);
+  }
+  
+  .view-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .toggle-btn {
+    flex: 1;
+  }
+}
+
 /* Welcome and states */
 .welcome-message {
   text-align: center;

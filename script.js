@@ -13,13 +13,20 @@ let yearEl;
 
 // Function to fetch the list of poems from the poetry directory
 async function fetchPoemList() {
+    console.log('Starting fetchPoemList...');
     try {
         // Try to fetch the generated poem list file
+        console.log('Fetching poetry/poems.json...');
         const response = await fetch('poetry/poems.json');
+        console.log('Response status:', response.status, 'OK:', response.ok);
+        
         if (response.ok) {
             const data = await response.json();
+            console.log('Parsed JSON data:', data);
+            
             // Handle both old format (array of strings) and new format (array of objects)
             if (Array.isArray(data.poems)) {
+                console.log('Found poems array with', data.poems.length, 'poems');
                 if (typeof data.poems[0] === 'string') {
                     // Old format - convert to new format
                     return data.poems.map(filename => ({ filename, tags: [] }));
@@ -30,6 +37,7 @@ async function fetchPoemList() {
             }
         }
     } catch (error) {
+        console.error('Error fetching poems.json:', error);
         console.log('No poems.json found, fetching directory listing');
     }
     
@@ -69,31 +77,123 @@ function getCleanTitle(filename) {
     return filename.replace('.md', '');
 }
 
-// Function to parse markdown to HTML (basic implementation)
-function parseMarkdown(markdown) {
+// Function to parse markdown to HTML (enhanced for analysis)
+function parseMarkdown(markdown, isAnalysis = false) {
     // Remove the first line (title) as we'll display it separately
     const lines = markdown.split('\n');
-    const title = lines[0].replace(/^#\s*/, '').replace(/[""]/g, '');
-    const content = lines.slice(1).join('\n');
+    const title = lines[0].replace(/^#\s*/, '');
+    let content = lines.slice(1).join('\n');
     
-    // Basic markdown parsing
-    let html = content
-        .replace(/\n\n/g, '</p><p>')
-        .replace(/\n/g, '<br>')
-        .trim();
-    
-    if (html && !html.startsWith('<p>')) {
-        html = '<p>' + html;
+    if (isAnalysis) {
+        // Enhanced markdown parsing for analysis files
+        content = content
+            // Parse headers
+            .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+            .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+            // Parse bold text
+            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+            // Parse italic text
+            .replace(/\*(.+?)\*/g, '<em>$1</em>')
+            // Parse bullet points
+            .replace(/^- (.+)$/gm, '<li>$1</li>')
+            .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
+            // Clean up nested tags
+            .replace(/<\/li>\n<li>/g, '</li><li>')
+            // Parse paragraphs
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .trim();
+    } else {
+        // Basic markdown parsing for poems
+        content = content
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>')
+            .trim();
     }
-    if (html && !html.endsWith('</p>')) {
-        html = html + '</p>';
+    
+    if (content && !content.startsWith('<p>') && !content.startsWith('<h')) {
+        content = '<p>' + content;
+    }
+    if (content && !content.endsWith('</p>') && !content.endsWith('</ul>') && !content.endsWith('</h2>') && !content.endsWith('</h3>')) {
+        content = content + '</p>';
     }
     
-    return { title, content: html };
+    return { title, content };
+}
+
+// Store current poem data for toggling
+let currentPoemData = null;
+let currentAnalysisData = null;
+let currentView = 'poem'; // 'poem' or 'analysis'
+
+// Function to load analysis
+async function loadAnalysis(filename) {
+    try {
+        const analysisPath = `docs/${getCleanTitle(filename)} - Analysis.md`;
+        const response = await fetch(analysisPath);
+        
+        if (!response.ok) {
+            throw new Error(`Failed to load analysis (HTTP ${response.status})`);
+        }
+        
+        const markdown = await response.text();
+        return parseMarkdown(markdown, true);
+    } catch (error) {
+        console.error('Error loading analysis:', error);
+        return null;
+    }
+}
+
+// Function to display content (poem or analysis)
+function displayContent(type = 'poem') {
+    poemDisplay.style.opacity = '0';
+    
+    setTimeout(() => {
+        if (type === 'poem' && currentPoemData) {
+            poemDisplay.innerHTML = `
+                <div class="content-header">
+                    <h2>${currentPoemData.title}</h2>
+                    <div class="view-toggle">
+                        <button class="toggle-btn active" data-view="poem">Poem</button>
+                        <button class="toggle-btn" data-view="analysis">Analysis</button>
+                    </div>
+                </div>
+                <div class="poem-text">${currentPoemData.content}</div>
+            `;
+        } else if (type === 'analysis' && currentAnalysisData) {
+            poemDisplay.innerHTML = `
+                <div class="content-header">
+                    <h2>${currentAnalysisData.title}</h2>
+                    <div class="view-toggle">
+                        <button class="toggle-btn" data-view="poem">Poem</button>
+                        <button class="toggle-btn active" data-view="analysis">Analysis</button>
+                    </div>
+                </div>
+                <div class="analysis-text">${currentAnalysisData.content}</div>
+            `;
+        }
+        
+        poemDisplay.style.opacity = '1';
+        
+        // Add event listeners to toggle buttons
+        const toggleBtns = poemDisplay.querySelectorAll('.toggle-btn');
+        toggleBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const view = e.target.getAttribute('data-view');
+                if (view !== currentView) {
+                    currentView = view;
+                    displayContent(view);
+                }
+            });
+        });
+    }, 300);
 }
 
 // Function to load and display a poem with smooth transitions
 async function loadPoem(filename, linkElement) {
+    // Reset view to poem
+    currentView = 'poem';
+    
     // Fade out current content
     poemDisplay.style.opacity = '0';
     
@@ -111,31 +211,26 @@ async function loadPoem(filename, linkElement) {
             }
             
             const markdown = await response.text();
-            const { title, content } = parseMarkdown(markdown);
+            currentPoemData = parseMarkdown(markdown);
             
-            // Fade out loading message
-            poemDisplay.style.opacity = '0';
+            // Load analysis in background
+            currentAnalysisData = await loadAnalysis(filename);
             
-            setTimeout(() => {
-                poemDisplay.innerHTML = `
-                    <h2>${title}</h2>
-                    <div class="poem-text">${content}</div>
-                `;
-                poemDisplay.style.opacity = '1';
-                
-                // Update active state in navigation
-                document.querySelectorAll('.poem-list a').forEach(link => {
-                    link.classList.remove('active');
-                });
-                if (linkElement) {
-                    linkElement.classList.add('active');
-                }
-                
-                // Scroll to top of poem content on mobile
-                if (window.innerWidth <= 767) {
-                    poemDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            }, 300);
+            // Display the poem
+            displayContent('poem');
+            
+            // Update active state in navigation
+            document.querySelectorAll('.poem-list a').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (linkElement) {
+                linkElement.classList.add('active');
+            }
+            
+            // Scroll to top of poem content on mobile
+            if (window.innerWidth <= 767) {
+                poemDisplay.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
             
         } catch (error) {
             console.error('Error loading poem:', error);
@@ -300,16 +395,27 @@ function updatePoemList() {
 
 // Function to create navigation links (original)
 function createNavigation() {
+    console.log('Creating navigation with', poems.length, 'poems');
     createTagButtons();
     updatePoemList();
 }
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', async () => {
+    console.log('DOM Content Loaded - Initializing...');
+    
     // Cache new elements
     navToggleBtn = document.querySelector('.nav-toggle');
     siteNav = document.getElementById('site-nav');
     yearEl = document.getElementById('year');
+    
+    console.log('Elements found:', {
+        poemList: !!poemList,
+        poemDisplay: !!poemDisplay,
+        tagButtons: !!tagButtons,
+        navToggleBtn: !!navToggleBtn,
+        siteNav: !!siteNav
+    });
 
     // Footer year
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -348,12 +454,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     try {
         // Fetch the list of poems
+        console.log('Fetching poem list...');
         poems = await fetchPoemList();
+        console.log('Fetched poems:', poems);
         
         // Clear loading state
         poemList.innerHTML = '';
         
         if (poems.length > 0) {
+            console.log('Creating navigation for', poems.length, 'poems');
             // Create navigation
             createNavigation();
             
