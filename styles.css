@@ -1,0 +1,413 @@
+/* 
+   Theme: The Little Boy That Drowned
+   A melancholic, introspective design that reflects themes of 
+   love, heartbreak, and inherent depression through careful
+   use of color, typography, and space.
+*/
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Color palette inspired by darkness and void */
+    --primary-dark: #000000;        /* Pure black */
+    --primary-medium: #0a0a0a;      /* Near black */
+    --primary-light: #1a1a1a;       /* Charcoal */
+    --accent-blue: #2a2a2a;         /* Dark gray accent */
+    --accent-soft: #4a4a4a;         /* Soft gray */
+    --text-primary: #e2e8f0;        /* Moon white */
+    --text-secondary: #a0aec0;      /* Fog gray */
+    --text-muted: #718096;          /* Quiet gray */
+    --highlight: #e6b450;           /* Distant light */
+    --shadow: rgba(0, 0, 0, 0.9);
+    
+    /* Typography */
+    --font-serif: 'Crimson Text', 'Georgia', serif;
+    --font-sans: 'Inter', -apple-system, sans-serif;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    color: var(--text-primary);
+    background: #000000;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* Typography enhancements */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+
+/* Floating particles animation */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-100vh) rotate(360deg); }
+}
+
+.particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    bottom: -10px;
+    background: var(--accent-soft);
+    border-radius: 50%;
+    opacity: 0.4;
+    animation: float 20s infinite ease-in-out;
+}
+
+/* Container with glass morphism effect */
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    background: rgba(10, 10, 10, 0.4);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 40px var(--shadow);
+}
+
+/* Header with depth */
+header {
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--accent-blue) 0%, transparent 70%);
+    opacity: 0.1;
+    animation: pulse 8s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+header h1 {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px var(--shadow);
+    position: relative;
+    z-index: 1;
+}
+
+.subtitle {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-style: italic;
+    opacity: 0.8;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 1;
+}
+
+/* Main layout */
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    
+    header {
+        width: 100%;
+    }
+    
+    .poem-nav {
+        width: 320px;
+        min-height: calc(100vh - 180px);
+    }
+    
+    .poem-content {
+        flex: 1;
+        min-height: calc(100vh - 180px);
+    }
+}
+
+/* Navigation with ethereal styling */
+.poem-nav {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    border-right: 1px solid rgba(74, 74, 74, 0.1);
+    position: relative;
+}
+
+.poem-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-soft), transparent);
+    opacity: 0.3;
+}
+
+.poem-nav h2 {
+    font-family: var(--font-sans);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.poem-list {
+    list-style: none;
+}
+
+.poem-list li {
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+    animation-delay: calc(var(--index) * 0.05s);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.poem-list a {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-size: 0.95rem;
+}
+
+.poem-list a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(230, 180, 80, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.poem-list a:hover {
+    color: var(--text-primary);
+    background: rgba(42, 42, 42, 0.2);
+    transform: translateX(4px);
+}
+
+.poem-list a:hover::before {
+    left: 100%;
+}
+
+.poem-list a.active {
+    background: rgba(42, 42, 42, 0.3);
+    color: var(--highlight);
+    border-left: 3px solid var(--highlight);
+}
+
+/* Poem content with breathing room */
+.poem-content {
+    padding: 3rem;
+    position: relative;
+    overflow-y: auto;
+}
+
+.poem-display {
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeIn 0.8s forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.poem-display h2 {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 400;
+    margin-bottom: 3rem;
+    color: var(--text-primary);
+    text-align: center;
+    position: relative;
+    padding-bottom: 1.5rem;
+}
+
+.poem-display h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 1px;
+    background: var(--highlight);
+    opacity: 0.6;
+}
+
+/* Poem text with careful typography */
+.poem-text {
+    white-space: pre-line;
+    font-size: clamp(1.05rem, 2vw, 1.2rem);
+    line-height: 1.9;
+    color: var(--text-secondary);
+    letter-spacing: 0.01em;
+}
+
+.poem-text p {
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 0.8s forwards;
+    animation-delay: 0.3s;
+}
+
+.poem-text p:nth-child(odd) {
+    animation-delay: 0.4s;
+}
+
+.poem-text p:nth-child(even) {
+    animation-delay: 0.5s;
+}
+
+/* Welcome message styling */
+.welcome-message {
+    text-align: center;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
+    font-style: italic;
+    margin-top: 4rem;
+    font-size: 1.1rem;
+    opacity: 0.7;
+}
+
+/* Loading and error states */
+.loading {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 3rem;
+    font-family: var(--font-sans);
+}
+
+.loading::after {
+    content: '...';
+    animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60%, 100% { content: '...'; }
+}
+
+.error {
+    color: var(--highlight);
+    text-align: center;
+    padding: 2rem;
+    font-family: var(--font-sans);
+}
+
+.error-detail {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    font-family: var(--font-sans);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--primary-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-blue);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-soft);
+}
+
+/* Mobile responsiveness with care */
+@media (max-width: 767px) {
+    header {
+        padding: 2rem 1.5rem;
+    }
+    
+    .poem-nav {
+        border-right: none;
+        border-bottom: 1px solid rgba(74, 74, 74, 0.1);
+        padding: 1.5rem;
+    }
+    
+    .poem-content {
+        padding: 2rem 1.5rem;
+    }
+    
+    .poem-display h2 {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+    
+    .poem-text {
+        font-size: 1.05rem;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
