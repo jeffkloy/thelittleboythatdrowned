@@ -1,32 +1,113 @@
 {
   "poems": [
-    "11 Moments From Love.md",
-    "Attention.md",
-    "Big Plans.md",
-    "California.md",
-    "Closer.md",
-    "Coffee.md",
-    "Conversations.md",
-    "Delivered (or) Read.md",
-    "Did You Say I Love You.md",
-    "Don't Let Me.md",
-    "Drone Days.md",
-    "Drugs.md",
-    "Eating Starlight.md",
-    "Hard.md",
-    "Lovable.md",
-    "North Star.md",
-    "On The Road.md",
-    "Our Truest Intentions.md",
-    "Searching.md",
-    "Sick.md",
-    "Song.md",
-    "Spark and Calm.md",
-    "Ten Years.md",
-    "The Endless Laughter.md",
-    "Therapy.md",
-    "We Were Really Strangers.md",
-    "to only be worth another's heart.md"
+    {
+      "filename": "11 Moments From Love.md",
+      "tags": ["love", "longing", "relationships", "hope"]
+    },
+    {
+      "filename": "Attention.md",
+      "tags": ["relationships", "longing", "self"]
+    },
+    {
+      "filename": "Big Plans.md",
+      "tags": ["hope", "relationships", "time"]
+    },
+    {
+      "filename": "California.md",
+      "tags": ["memory", "longing", "loss"]
+    },
+    {
+      "filename": "Closer.md",
+      "tags": ["love", "relationships"]
+    },
+    {
+      "filename": "Coffee.md",
+      "tags": ["relationships", "love", "memory"]
+    },
+    {
+      "filename": "Conversations.md",
+      "tags": ["relationships", "memory"]
+    },
+    {
+      "filename": "Delivered (or) Read.md",
+      "tags": ["relationships", "longing"]
+    },
+    {
+      "filename": "Did You Say I Love You.md",
+      "tags": ["love", "relationships"]
+    },
+    {
+      "filename": "Don't Let Me.md",
+      "tags": ["self", "relationships"]
+    },
+    {
+      "filename": "Drone Days.md",
+      "tags": ["depression", "self"]
+    },
+    {
+      "filename": "Drugs.md",
+      "tags": ["depression", "loss", "self"]
+    },
+    {
+      "filename": "Eating Starlight.md",
+      "tags": ["hope", "self"]
+    },
+    {
+      "filename": "Hard.md",
+      "tags": ["self", "depression"]
+    },
+    {
+      "filename": "Lovable.md",
+      "tags": ["self", "love"]
+    },
+    {
+      "filename": "North Star.md",
+      "tags": ["love", "hope"]
+    },
+    {
+      "filename": "On The Road.md",
+      "tags": ["memory", "time"]
+    },
+    {
+      "filename": "Our Truest Intentions.md",
+      "tags": ["relationships", "self"]
+    },
+    {
+      "filename": "Searching.md",
+      "tags": ["longing", "self"]
+    },
+    {
+      "filename": "Sick.md",
+      "tags": ["depression", "self"]
+    },
+    {
+      "filename": "Song.md",
+      "tags": ["memory", "love"]
+    },
+    {
+      "filename": "Spark and Calm.md",
+      "tags": ["love", "relationships"]
+    },
+    {
+      "filename": "Ten Years.md",
+      "tags": ["time", "memory", "loss"]
+    },
+    {
+      "filename": "The Endless Laughter.md",
+      "tags": ["relationships", "self", "memory"]
+    },
+    {
+      "filename": "Therapy.md",
+      "tags": ["self", "hope"]
+    },
+    {
+      "filename": "We Were Really Strangers.md",
+      "tags": ["heartbreak", "relationships", "loss"]
+    },
+    {
+      "filename": "to only be worth another's heart.md",
+      "tags": ["self", "love"]
+    }
   ],
   "count": 27,
   "generated": true

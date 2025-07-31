@@ -1,9 +1,11 @@
-// Array to store poem filenames
+// Array to store poem objects with filenames and tags
 let poems = [];
+let activeTags = new Set(['all']); // Track active filter tags
 
 // DOM elements
 const poemList = document.getElementById('poem-list');
 const poemDisplay = document.getElementById('poem-display');
+const tagButtons = document.getElementById('tag-buttons');
 // New: nav toggle for mobile navigation and year in footer
 let navToggleBtn;
 let siteNav;
@@ -16,7 +18,16 @@ async function fetchPoemList() {
         const response = await fetch('poetry/poems.json');
         if (response.ok) {
             const data = await response.json();
-            return data.poems;
+            // Handle both old format (array of strings) and new format (array of objects)
+            if (Array.isArray(data.poems)) {
+                if (typeof data.poems[0] === 'string') {
+                    // Old format - convert to new format
+                    return data.poems.map(filename => ({ filename, tags: [] }));
+                } else {
+                    // New format with tags
+                    return data.poems;
+                }
+            }
         }
     } catch (error) {
         console.log('No poems.json found, fetching directory listing');
@@ -35,10 +46,13 @@ async function fetchPoemList() {
             const poems = links
                 .map(link => link.getAttribute('href'))
                 .filter(href => href && href.endsWith('.md'))
-                .map(href => decodeURIComponent(href.split('/').pop()));
+                .map(href => ({
+                    filename: decodeURIComponent(href.split('/').pop()),
+                    tags: []
+                }));
             
             if (poems.length > 0) {
-                return poems.sort();
+                return poems.sort((a, b) => a.filename.localeCompare(b.filename));
             }
         }
     } catch (error) {
@@ -138,21 +152,131 @@ async function loadPoem(filename, linkElement) {
     }, 300);
 }
 
-// Function to create navigation links
-function createNavigation() {
-    poems.forEach((filename, index) => {
+// Function to extract all unique tags from poems
+function getAllTags() {
+    const tagCounts = {};
+    poems.forEach(poem => {
+        poem.tags.forEach(tag => {
+            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+        });
+    });
+    
+    // Sort tags by frequency (most common first) then alphabetically
+    return Object.entries(tagCounts)
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([tag, count]) => ({ tag, count }));
+}
+
+// Function to filter poems based on active tags
+function filterPoems() {
+    const filteredPoems = poems.filter(poem => {
+        if (activeTags.has('all') || activeTags.size === 0) {
+            return true;
+        }
+        // Check if poem has any of the active tags
+        return poem.tags.some(tag => activeTags.has(tag));
+    });
+    
+    return filteredPoems;
+}
+
+// Function to create tag filter buttons
+function createTagButtons() {
+    if (!tagButtons) return;
+    
+    const allTags = getAllTags();
+    
+    // Clear existing buttons
+    tagButtons.innerHTML = '';
+    
+    // Add "All" button
+    const allButton = document.createElement('button');
+    allButton.className = 'tag-button active';
+    allButton.textContent = `All (${poems.length})`;
+    allButton.setAttribute('data-tag', 'all');
+    allButton.setAttribute('aria-pressed', 'true');
+    allButton.addEventListener('click', () => {
+        activeTags.clear();
+        activeTags.add('all');
+        updateTagButtons();
+        updatePoemList();
+    });
+    tagButtons.appendChild(allButton);
+    
+    // Add individual tag buttons
+    allTags.forEach(({ tag, count }) => {
+        const button = document.createElement('button');
+        button.className = 'tag-button';
+        button.textContent = `${tag} (${count})`;
+        button.setAttribute('data-tag', tag);
+        button.setAttribute('aria-pressed', 'false');
+        button.addEventListener('click', () => {
+            if (activeTags.has('all')) {
+                activeTags.clear();
+            }
+            
+            if (activeTags.has(tag)) {
+                activeTags.delete(tag);
+                if (activeTags.size === 0) {
+                    activeTags.add('all');
+                }
+            } else {
+                activeTags.add(tag);
+            }
+            
+            updateTagButtons();
+            updatePoemList();
+        });
+        tagButtons.appendChild(button);
+    });
+}
+
+// Function to update tag button states
+function updateTagButtons() {
+    if (!tagButtons) return;
+    
+    const buttons = tagButtons.querySelectorAll('.tag-button');
+    buttons.forEach(button => {
+        const tag = button.getAttribute('data-tag');
+        if (activeTags.has(tag)) {
+            button.classList.add('active');
+            button.setAttribute('aria-pressed', 'true');
+        } else {
+            button.classList.remove('active');
+            button.setAttribute('aria-pressed', 'false');
+        }
+    });
+}
+
+// Function to update the poem list based on filters
+function updatePoemList() {
+    const filteredPoems = filterPoems();
+    
+    // Clear current list
+    poemList.innerHTML = '';
+    
+    if (filteredPoems.length === 0) {
+        const li = document.createElement('li');
+        li.className = 'no-results';
+        li.textContent = 'No poems match the selected filters';
+        poemList.appendChild(li);
+        return;
+    }
+    
+    // Create navigation links for filtered poems
+    filteredPoems.forEach((poem, index) => {
         const li = document.createElement('li');
         li.style.setProperty('--index', index);
         li.setAttribute('role', 'listitem');
         
         const a = document.createElement('a');
         a.href = '#';
-        a.textContent = getCleanTitle(filename);
-        a.setAttribute('aria-label', `Read poem: ${getCleanTitle(filename)}`);
+        a.textContent = getCleanTitle(poem.filename);
+        a.setAttribute('aria-label', `Read poem: ${getCleanTitle(poem.filename)}`);
         
         a.addEventListener('click', (e) => {
             e.preventDefault();
-            loadPoem(filename, e.currentTarget);
+            loadPoem(poem.filename, e.currentTarget);
             // Close mobile nav after selection for better UX
             if (siteNav && window.matchMedia('(max-width: 767px)').matches) {
               siteNav.removeAttribute('data-open');
@@ -163,6 +287,21 @@ function createNavigation() {
         li.appendChild(a);
         poemList.appendChild(li);
     });
+    
+    // If the currently active poem is no longer in the filtered list, load the first one
+    const activeLink = poemList.querySelector('a.active');
+    if (!activeLink && filteredPoems.length > 0) {
+        const firstLink = poemList.querySelector('a');
+        if (firstLink) {
+            setTimeout(() => firstLink.click(), 300);
+        }
+    }
+}
+
+// Function to create navigation links (original)
+function createNavigation() {
+    createTagButtons();
+    updatePoemList();
 }
 
 // Initialize the page
