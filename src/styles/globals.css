@@ -162,24 +162,11 @@ html, body, #root {
   border-bottom: 1px solid rgba(74, 74, 74, 0.15);
 }
 
-/* Mobile sticky header */
-@media (max-width: 767px) {
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-  }
-}
-
 .site-header__inner {
   padding: var(--space-l) var(--space-m) var(--space-m);
   max-width: var(--container-max);
   margin-inline: auto;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-m);
 }
 
 /* Hamburger menu button - mobile only */
@@ -308,6 +295,15 @@ html, body, #root {
 .mobile-nav .poem-list {
   padding: 0 var(--space-m) var(--space-m);
   max-height: none;
+}
+
+/* Floating hamburger button for mobile */
+.menu-toggle--floating {
+  position: fixed;
+  top: var(--space-m);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
 }
 
 /* Show mobile menu button only on mobile */

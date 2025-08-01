@@ -45,25 +45,25 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
 
   return (
     <>
+      {/* Floating mobile menu button */}
+      <button
+        ref={menuButtonRef}
+        className="menu-toggle menu-toggle--floating"
+        onClick={toggleMenu}
+        aria-label="Toggle navigation menu"
+        aria-expanded={isMenuOpen}
+        aria-controls="mobile-nav"
+      >
+        <span className="menu-toggle__line"></span>
+        <span className="menu-toggle__line"></span>
+        <span className="menu-toggle__line"></span>
+      </button>
+
       <header className="site-header" role="banner">
         <div className="site-header__inner">
-          {/* Mobile menu button above title */}
-          <button
-            ref={menuButtonRef}
-            className="menu-toggle"
-            onClick={toggleMenu}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-nav"
-          >
-            <span className="menu-toggle__line"></span>
-            <span className="menu-toggle__line"></span>
-            <span className="menu-toggle__line"></span>
-          </button>
-          
           <div className="brand">
             <h1 className="brand__title">The Little Boy That Drowned</h1>
-            <p className="brand__subtitle">Intimate verses on love, loss, and the quiet spaces between</p>
+            <p className="brand__subtitle">Intimate verses on love, loss, addiction, belonging, and the quiet spaces in between: a collection of poems by @jeffkloy</p>
           </div>
         </div>
       </header>
