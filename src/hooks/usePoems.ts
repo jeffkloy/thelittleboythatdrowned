@@ -37,6 +37,7 @@ export function usePoems() {
     for (const p of poems) for (const t of (p.tags || [])) counts[t] = (counts[t] || 0) + 1;
     return Object.entries(counts)
       .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .slice(0, 8) // Limit to top 8 tags
       .map(([tag, count]) => ({ tag, count }));
   }, [poems]);
 
