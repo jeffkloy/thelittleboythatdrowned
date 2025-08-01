@@ -176,18 +176,20 @@ html, body, #root {
 /* Hamburger menu button - mobile only */
 .menu-toggle {
   display: none;
-  background: transparent;
-  border: none;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-s);
   padding: var(--space-xs);
   cursor: pointer;
   width: 44px;
   height: 44px;
   position: relative;
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .menu-toggle:hover {
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .menu-toggle:focus-visible {
@@ -199,12 +201,13 @@ html, body, #root {
 .menu-toggle__line {
   display: block;
   width: 24px;
-  height: 2px;
-  background-color: var(--color-text);
-  margin: 5px auto;
+  height: 3px;
+  background-color: #e5ecf5;
+  margin: 4px auto;
   transition: all 0.3s ease;
   position: relative;
   pointer-events: none;
+  border-radius: 2px;
 }
 
 /* Mobile navigation wrapper */
