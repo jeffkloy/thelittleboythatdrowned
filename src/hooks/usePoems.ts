@@ -30,7 +30,15 @@ export function usePoems() {
     return () => { alive = false; };
   }, []);
 
-  const poems = useMemo(() => data?.poems ?? [], [data]);
+  const poems = useMemo(() => {
+    if (!data?.poems) return [];
+    // Sort poems alphabetically by filename (case-insensitive)
+    return [...data.poems].sort((a, b) => {
+      const nameA = a.filename.replace('.md', '').toLowerCase();
+      const nameB = b.filename.replace('.md', '').toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+  }, [data]);
 
   const tags = useMemo(() => {
     const counts: Record<string, number> = {};
