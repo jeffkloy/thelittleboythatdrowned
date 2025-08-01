@@ -28,10 +28,13 @@ export default function App() {
   const { poems, tags, loading, error } = usePoems();
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [selected, setSelected] = useState<string | null>(null);
+  const [shouldCloseMenu, setShouldCloseMenu] = useState(false);
 
   // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
     setSelected(filename);
+    // Trigger menu close on mobile
+    setShouldCloseMenu(true);
     const idx = poems.findIndex((p: { filename: string; tags: string[] }) => p.filename === filename);
     const next = idx >= 0 && idx + 1 < poems.length ? poems[idx + 1].filename : null;
     if (next) {
@@ -43,9 +46,24 @@ export default function App() {
 
   const total = useMemo(() => poems.length, [poems]);
 
+  // Mobile navigation content for Header
+  const mobileNavContent = (
+    <NavContent
+      allTags={tags}
+      total={total}
+      activeTags={activeTags}
+      setActiveTags={setActiveTags}
+      poems={poems}
+      onSelect={handleSelect}
+    />
+  );
+
   return (
     <div className="layout">
-      <Header />
+      <Header 
+        navContent={mobileNavContent}
+        onMenuClose={() => setShouldCloseMenu(false)}
+      />
       <Particles />
 
       {/* Single column on mobile, two columns on desktop */}

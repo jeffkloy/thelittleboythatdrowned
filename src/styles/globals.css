@@ -154,7 +154,7 @@ html, body, #root {
 .p-8 { left: 80%; animation-delay: 21s; }
 .p-9 { left: 90%; animation-delay: 24s; }
 
-/* Header (simplified - no nav toggle) */
+/* Header with mobile menu */
 .site-header {
   position: relative;
   z-index: 2;
@@ -167,6 +167,154 @@ html, body, #root {
   max-width: var(--container-max);
   margin-inline: auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+/* Hamburger menu button - mobile only */
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: var(--space-xs);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+
+.menu-toggle:hover {
+  transform: scale(1.05);
+}
+
+.menu-toggle:focus-visible {
+  outline: var(--focus-ring);
+  box-shadow: var(--focus-shadow);
+  border-radius: var(--radius-s);
+}
+
+.menu-toggle__line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-text);
+  margin: 5px auto;
+  transition: all 0.3s ease;
+  position: relative;
+  pointer-events: none;
+}
+
+/* Mobile navigation wrapper */
+.mobile-nav-wrapper {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.mobile-nav-wrapper.is-open {
+  pointer-events: auto;
+}
+
+/* Backdrop */
+.mobile-nav-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.mobile-nav-wrapper.is-open .mobile-nav-backdrop {
+  opacity: 1;
+}
+
+/* Mobile navigation drawer */
+.mobile-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 85vw;
+  background: var(--color-surface);
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-nav-wrapper.is-open .mobile-nav {
+  transform: translateX(0);
+}
+
+/* Close button */
+.mobile-nav__close {
+  position: absolute;
+  top: var(--space-s);
+  right: var(--space-s);
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  color: var(--color-text);
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.mobile-nav__close:hover {
+  transform: scale(1.1);
+}
+
+.mobile-nav__close:focus-visible {
+  outline: var(--focus-ring);
+  box-shadow: var(--focus-shadow);
+  border-radius: var(--radius-s);
+}
+
+/* Mobile nav content styling */
+.mobile-nav .site-nav__heading {
+  margin-top: calc(var(--space-xl) + var(--space-m));
+  padding: 0 var(--space-m);
+}
+
+.mobile-nav .tag-filters {
+  padding: 0 var(--space-m);
+  margin-bottom: var(--space-m);
+  border-bottom: 1px solid rgba(74, 74, 74, 0.15);
+}
+
+.mobile-nav .poem-list {
+  padding: 0 var(--space-m) var(--space-m);
+  max-height: none;
+}
+
+/* Show mobile menu button only on mobile */
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav-wrapper {
+    display: block;
+  }
+
+  /* Hide desktop navigation */
+  .layout-columns .site-nav {
+    display: none;
+  }
 }
 
 .brand__title {
@@ -596,6 +744,13 @@ header h1 {
   
   .toggle-btn {
     flex: 1;
+  }
+}
+
+/* Ensure desktop styles don't interfere with mobile layout */
+@media (min-width: 768px) {
+  .site-header__inner {
+    display: block;
   }
 }
 
