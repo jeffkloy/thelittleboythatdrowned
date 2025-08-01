@@ -22,10 +22,6 @@ export default function PoemList({ poems, activeTags, onSelect }: Props) {
   }, [poems, activeTags]);
 
   const handleActivate = useCallback((filename: string) => {
-    // Close mobile menu via global closer if present (iOS timing quirk safe)
-    if (typeof (window as any).__closeMobileMenu === 'function') {
-      (window as any).__closeMobileMenu();
-    }
     onSelect(filename);
   }, [onSelect]);
 
@@ -52,25 +48,12 @@ export default function PoemList({ poems, activeTags, onSelect }: Props) {
                 }}
                 onClick={(e) => {
                   e.preventDefault();
-                  e.stopPropagation();
-                  // If the header provided a global close+select, prefer it to ensure drawer closes before load
-                  const closeAndSelect = (window as any).__selectPoemAndClose as undefined | ((fn?: () => void) => void);
-                  if (typeof closeAndSelect === 'function') {
-                    closeAndSelect(() => handleActivate(p.filename));
-                  } else {
-                    handleActivate(p.filename);
-                  }
+                  handleActivate(p.filename);
                 }}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    e.stopPropagation();
-                    const closeAndSelect = (window as any).__selectPoemAndClose as undefined | ((fn?: () => void) => void);
-                    if (typeof closeAndSelect === 'function') {
-                      closeAndSelect(() => handleActivate(p.filename));
-                    } else {
-                      handleActivate(p.filename);
-                    }
+                    handleActivate(p.filename);
                   }
                 }}
               >

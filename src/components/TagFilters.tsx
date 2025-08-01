@@ -43,26 +43,13 @@ export default function TagFilters({ allTags, total, onChange }: Props) {
             className={'tag-button' + (b.active ? ' active' : '')}
             data-tag={b.tag}
             aria-pressed={b.active}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const closeAndSelect = (window as any).__selectPoemAndClose as undefined | ((fn?: () => void) => void);
-              if (typeof closeAndSelect === 'function') {
-                closeAndSelect(() => toggle(b.tag));
-              } else {
-                toggle(b.tag);
-              }
+            onClick={() => {
+              toggle(b.tag);
             }}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                e.stopPropagation();
-                const closeAndSelect = (window as any).__selectPoemAndClose as undefined | ((fn?: () => void) => void);
-                if (typeof closeAndSelect === 'function') {
-                  closeAndSelect(() => toggle(b.tag));
-                } else {
-                  toggle(b.tag);
-                }
+                toggle(b.tag);
               }
             }}
           >

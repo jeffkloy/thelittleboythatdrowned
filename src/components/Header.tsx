@@ -72,18 +72,6 @@ export default function Header({ renderMobileNav }: HeaderProps) {
     };
   }, []);
 
-  // Expose a helper that runs a callback, closes the drawer, and restores focus
-  useEffect(() => {
-    window.__selectPoemAndClose = (fn?: () => void) => {
-      try { if (typeof fn === 'function') fn(); }
-      finally {
-        setOpen(false);
-        // defer focus return slightly to allow re-render
-        setTimeout(() => btnRef.current?.focus?.(), 0);
-      }
-    };
-    return () => { delete window.__selectPoemAndClose; };
-  }, []);
 
   // Keyboard on toggle
   const onToggleKeyDown = useCallback((e: React.KeyboardEvent) => {
@@ -143,45 +131,6 @@ export default function Header({ renderMobileNav }: HeaderProps) {
         className={`site-nav ${open ? 'open' : ''}`}
         role="navigation"
         aria-label="Primary"
-        onMouseDown={(e) => {
-          // Prevent focus-steal/selection quirks in Safari during quick taps
-          const interactive = (e.target as HTMLElement).closest('a,button,[data-tag]');
-          if (interactive) e.preventDefault();
-        }}
-        onClick={(e) => {
-          // Delegate clicks inside the mobile drawer only on small screens
-          if (window.matchMedia('(min-width: 768px)').matches) return;
-          const target = e.target as HTMLElement;
-          const anchor = target.closest('a[href]') as HTMLAnchorElement | null;
-          const tagBtn = target.closest('button.tag-button,[data-tag]') as HTMLElement | null;
-
-          // If a poem link was clicked, let PoemList's handler load poem, then close
-          if (anchor) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.__selectPoemAndClose) {
-              // Allow child onClick to run first on next tick, then close
-              setTimeout(() => window.__selectPoemAndClose?.(), 0);
-            } else {
-              // Fallback: close immediately
-              setOpen(false);
-              setTimeout(() => btnRef.current?.focus?.(), 0);
-            }
-            return;
-          }
-
-          // If a tag was clicked, let TagFilters handler update filters, then close
-          if (tagBtn) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (window.__selectPoemAndClose) {
-              setTimeout(() => window.__selectPoemAndClose?.(), 0);
-            } else {
-              setOpen(false);
-              setTimeout(() => btnRef.current?.focus?.(), 0);
-            }
-          }
-        }}
       >
         {/* Render mobile nav content when open, if provided */}
         {renderMobileNav ? renderMobileNav(open) : null}
