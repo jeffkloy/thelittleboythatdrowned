@@ -16,8 +16,8 @@ async function fetchPoemList() {
     console.log('Starting fetchPoemList...');
     try {
         // Try to fetch the generated poem list file
-        console.log('Fetching poetry/poems.json...');
-        const response = await fetch('poetry/poems.json');
+        console.log('Fetching poems/poems.json...');
+        const response = await fetch('poems/poems.json');
         console.log('Response status:', response.status, 'OK:', response.ok);
         
         if (response.ok) {
@@ -43,7 +43,7 @@ async function fetchPoemList() {
     
     // For GitHub Pages: Try to fetch the directory listing
     try {
-        const response = await fetch('poetry/');
+        const response = await fetch('poems/');
         if (response.ok) {
             const text = await response.text();
             // Parse the directory listing HTML
@@ -129,7 +129,7 @@ let currentView = 'poem'; // 'poem' or 'analysis'
 // Function to load analysis
 async function loadAnalysis(filename) {
     try {
-        const analysisPath = `docs/${getCleanTitle(filename)} - Analysis.md`;
+        const analysisPath = `analyses/${getCleanTitle(filename)} - Analysis.md`;
         const response = await fetch(analysisPath);
         
         if (!response.ok) {
@@ -203,7 +203,7 @@ async function loadPoem(filename, linkElement) {
         
         try {
             // Try to load the poem file
-            const response = await fetch(`poetry/${encodeURIComponent(filename)}`);
+            const response = await fetch(`poems/${encodeURIComponent(filename)}`);
             
             if (!response.ok) {
                 console.error(`Failed to load ${filename}: HTTP ${response.status}`);
