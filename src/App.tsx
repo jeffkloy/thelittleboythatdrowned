@@ -29,7 +29,7 @@ export default function App() {
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [selected, setSelected] = useState<string | null>(null);
 
-  // Prefetch next poem (safe enhancement) after selection and close mobile menu if open
+  // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
     setSelected(filename);
     const idx = poems.findIndex((p: { filename: string; tags: string[] }) => p.filename === filename);
@@ -39,30 +39,16 @@ export default function App() {
       const url = new URL('poems/' + encodeURIComponent(next), base).toString();
       fetch(url).catch(() => void 0);
     }
-    if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) {
-      (window as any).__closeMobileMenu?.();
-    }
   }
 
   const total = useMemo(() => poems.length, [poems]);
 
   return (
     <div className="layout">
-      <Header
-        renderMobileNav={() => (
-          <NavContent
-            allTags={tags}
-            total={total}
-            activeTags={activeTags}
-            setActiveTags={setActiveTags}
-            poems={poems}
-            onSelect={handleSelect}
-          />
-        )}
-      />
+      <Header />
       <Particles />
 
-      {/* Two-column layout: left nav (33%), right content (67%) */}
+      {/* Single column on mobile, two columns on desktop */}
       <div className="layout-columns">
         <aside id="site-nav" className="site-nav" role="navigation" aria-label="Primary">
           <NavContent

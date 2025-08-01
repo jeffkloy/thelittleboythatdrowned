@@ -154,22 +154,19 @@ html, body, #root {
 .p-8 { left: 80%; animation-delay: 21s; }
 .p-9 { left: 90%; animation-delay: 24s; }
 
-/* Header and Nav (mobile-first) */
+/* Header (simplified - no nav toggle) */
 .site-header {
   position: relative;
-  z-index: 1002; /* ensure header/toggle is above scrim/drawer */
+  z-index: 2;
   background: linear-gradient(135deg, #000, #0a0a0a);
   border-bottom: 1px solid rgba(74, 74, 74, 0.15);
 }
 
 .site-header__inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-s);
   padding: var(--space-l) var(--space-m) var(--space-m);
   max-width: var(--container-max);
   margin-inline: auto;
+  text-align: center;
 }
 
 .brand__title {
@@ -189,88 +186,14 @@ html, body, #root {
 }
 
 
-/* Nav toggle (hamburger) */
-.nav-toggle {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  /* iOS Safari fix for touch events */
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  cursor: pointer;
-  position: relative;
-  z-index: 1002; /* above scrim (1000) and drawer (1001) */
-}
-.nav-toggle:hover {
-  background: rgba(255,255,255,0.04);
-}
-.nav-toggle:focus-visible {
-  outline: var(--focus-ring);
-  box-shadow: var(--focus-shadow);
-}
-.nav-toggle .icon {
-  width: 24px;
-  height: 24px;
-}
 
-/* Collapsible nav (mobile) - only apply to the mobile drawer */
-#mobile-nav.site-nav {
-  max-width: var(--container-max);
-  margin: 0 auto;
-  padding: 0 var(--space-m) var(--space-m);
-  display: block; /* always rendered, visibility controlled by transform/opacity */
-  position: fixed; /* overlays content below header */
-  top: 72px; /* approx header height */
-  right: 0;
-  left: 0;
-  z-index: 1001; /* above scrim (1000), below header/toggle (1002) */
-  background: var(--color-surface);
-  border-bottom: 1px solid rgba(74, 74, 74, 0.15);
-  max-height: calc(100dvh - 72px);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  transform: translateY(-100%);
-  opacity: 0;
-  visibility: hidden;
-  transition: transform 180ms ease, opacity 160ms ease, visibility 0s 180ms;
-  pointer-events: none; /* ignore clicks when hidden */
-  will-change: transform, opacity;
-}
-#mobile-nav.site-nav.open {
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-  transition: transform 180ms ease, opacity 160ms ease, visibility 0s;
-  pointer-events: auto; /* accept clicks when open */
-}
-
-/* Ensure the drawer intercepts clicks when open even if other overlays exist */
-#mobile-nav.site-nav.open * {
-  pointer-events: auto;
-}
-
-/* Desktop nav styles (unchanged) */
+/* Navigation styles - mobile first approach */
 .site-nav {
   max-width: var(--container-max);
   margin: 0 auto;
   padding: 0 var(--space-m) var(--space-m);
 }
 
-/* Scrim for outside click on mobile */
-.menu-scrim {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 1000; /* below drawer (1001) and header/toggle (1002) */
-  pointer-events: auto; /* only visible when not hidden attribute */
-}
 
 .site-nav__heading {
   font-family: var(--font-sans);
@@ -439,10 +362,6 @@ header h1 {
 }
 
 /* Defensive: prevent invisible overlay blocking clicks in left column */
-.layout-columns > .site-nav {
-  position: relative;
-  z-index: 1001; /* above scrim (1000) and particles (1) */
-}
 
 .poem-list li {
     margin-bottom: 0.25rem;
@@ -844,18 +763,12 @@ header h1 {
   .site-header__inner {
     padding: var(--space-xl) var(--space-m) var(--space-m);
   }
-  .nav-toggle { display: none; }
-  .menu-scrim { display: none !important; }
-  /* Hide mobile nav on desktop */
-  #mobile-nav.site-nav {
-    display: none !important;
-  }
-  /* Show desktop nav */
+  /* Desktop: keep nav in sidebar */
   .site-nav {
     position: static;
     transform: none !important;
     opacity: 1 !important;
-    display: block !important; /* horizontal nav at tablet+ */
+    display: block !important;
     padding-bottom: var(--space-l);
     max-height: none;
     overflow: visible;
@@ -874,7 +787,7 @@ header h1 {
 }
 
 @media (min-width: 1024px) {
-  .layout {
+  .layout-columns {
     display: grid;
     grid-template-columns: 33% 67%;
     gap: 0;
@@ -882,14 +795,13 @@ header h1 {
   }
 
   /* Left sidebar (poem list) */
-  .layout-columns {
-    display: contents; /* allow children to become grid items */
-  }
   .layout-columns > .site-nav {
     grid-column: 1;
     padding: var(--space-m);
     border-right: 1px solid rgba(74, 74, 74, 0.15);
     height: 100%;
+    border-bottom: none;
+    background: transparent;
   }
 
   /* Right content (poem/analysis) */
@@ -898,9 +810,6 @@ header h1 {
     padding: var(--space-xl) var(--space-xl);
   }
 
-  .site-header {
-    border-bottom: none;
-  }
   .poem-display { max-width: 44rem; }
 }
 
@@ -939,10 +848,49 @@ header h1 {
 }
 
 /* LAST-RESORT SAFEGUARD: if any unknown overlay blocks clicks, allow pointer events only for interactive UI */
-@media (max-width: 1023px) {
-  .site-header ~ * {
-    position: relative;
-    z-index: 0;
+/* Mobile layout - single column */
+@media (max-width: 767px) {
+  .layout {
+    display: block;
+  }
+  
+  .layout-columns {
+    display: block;
+  }
+  
+  /* Navigation appears above content on mobile */
+  .site-nav {
+    position: static;
+    display: block;
+    background: var(--color-surface);
+    border-bottom: 1px solid rgba(74, 74, 74, 0.15);
+    padding: var(--space-m);
+    margin-bottom: 0;
+  }
+  
+  /* Compact mobile styles */
+  .tag-filters {
+    margin-bottom: var(--space-m);
+  }
+  
+  .poem-list {
+    display: block;
+    max-height: 300px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .poem-list li {
+    margin-bottom: 0;
+  }
+  
+  .poem-list a {
+    padding: var(--space-xs) var(--space-s);
+    font-size: var(--fs-300);
+  }
+  
+  .poem-content {
+    padding: var(--space-m);
   }
 }
 
@@ -991,12 +939,6 @@ header h1 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
-  /* Accessibility: hide toggle if JS disabled (optional) */
-  html.no-js .nav-toggle { display: none; }
-  
-  /* Prevent background scroll when menu open */
-  html.menu-open, body.menu-open { overflow: hidden; }
 }
 
 /* Utilities & a11y */
