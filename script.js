@@ -376,7 +376,21 @@ function updatePoemList() {
             loadPoem(poem.filename, e.currentTarget);
             // Close mobile nav after selection for better UX
             if (siteNav && window.matchMedia('(max-width: 767px)').matches) {
-              closeMobileMenu();
+              if (typeof window.__closeMobileMenu === 'function') {
+                window.__closeMobileMenu();
+              } else {
+                // Fallback if not yet defined (Safari timing)
+                siteNav.classList.remove('open');
+                document.querySelector('.site-header')?.classList.remove('is-open');
+                const scrimEl = document.querySelector('[data-menu-scrim]');
+                if (scrimEl) scrimEl.hidden = true;
+                document.documentElement.classList.remove('menu-open');
+                document.body.classList.remove('menu-open');
+                if (navToggleBtn) {
+                  navToggleBtn.setAttribute('aria-expanded', 'false');
+                  navToggleBtn.setAttribute('aria-label', 'Open navigation menu');
+                }
+              }
             }
         });
         
@@ -454,6 +468,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     function toggleMobileMenu() {
       if (menuOpen) closeMobileMenu(); else openMobileMenu();
     }
+    // Expose closer globally for use in early callbacks (Safari timing)
+    window.__closeMobileMenu = closeMobileMenu;
 
     // Attach toggle handlers if elements exist
     if (navToggleBtn) {
@@ -474,7 +490,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Close on Escape anywhere
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && siteNav && siteNav.classList.contains('open')) {
-        closeMobileMenu();
+        if (typeof window.__closeMobileMenu === 'function') {
+          window.__closeMobileMenu();
+        } else {
+          siteNav.classList.remove('open');
+          document.querySelector('.site-header')?.classList.remove('is-open');
+          const scrimEl = document.querySelector('[data-menu-scrim]');
+          if (scrimEl) scrimEl.hidden = true;
+          document.documentElement.classList.remove('menu-open');
+          document.body.classList.remove('menu-open');
+          if (navToggleBtn && navToggleBtn.focus) navToggleBtn.focus();
+        }
       }
     });
 

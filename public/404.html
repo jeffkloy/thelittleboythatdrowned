@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <meta http-equiv="refresh" content="0;url=/thelittleboythatdrowned/" />
+    <script>
+      (function () {
+        var path = location.pathname + location.search + location.hash;
+        // Ensure it works both when hosted at / and at /thelittleboythatdrowned/
+        var base = '/thelittleboythatdrowned/';
+        // If already at base, just go to index
+        if (path.indexOf(base) === 0) {
+          location.replace(base);
+        } else {
+          location.replace(base + path.replace(/^\//, ''));
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    Redirecting to the app…
+  </body>
+</html>

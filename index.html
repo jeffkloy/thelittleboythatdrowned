@@ -1,90 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    >
-    <title>The Little Boy That Drowned</title>
-    <meta name="description" content="Intimate verses mapping the geography of human connection—from first sparks to final silence, through longing, loss, and the quiet hope that endures.">
-    <!-- Performance hints -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Preload CSS to minimize render-blocking -->
-    <link rel="preload" as="style" href="styles.css">
-    <!-- Keep CSS first to avoid FOUC; Google Fonts loaded inside CSS via @import -->
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Layout wrapper to enable sidebar at large screens -->
-    <div class="layout">
-      <!-- Site header with mobile nav -->
-      <header class="site-header" role="banner">
-        <div class="site-header__inner">
-          <div class="brand">
-            <h1 class="brand__title">The Little Boy That Drowned</h1>
-            <p class="brand__subtitle">Intimate verses on love, loss, and the quiet spaces between</p>
-          </div>
-
-          <button
-            class="nav-toggle"
-            type="button"
-            data-menu-toggle
-            aria-controls="site-nav"
-            aria-expanded="false"
-            aria-label="Open navigation menu"
-          >
-            <span class="visually-hidden">Menu</span>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </button>
-        </div>
-
-        <nav id="site-nav" class="site-nav" role="navigation" aria-label="Primary" data-menu>
-          <div class="tag-filters" role="group" aria-label="Filter poems by tag">
-            <h2 class="site-nav__heading">Filter by Theme</h2>
-            <div id="tag-buttons" class="tag-buttons">
-              <!-- Tag buttons will be loaded here -->
-            </div>
-          </div>
-          <h2 class="site-nav__heading">Poems</h2>
-          <ul id="poem-list" class="poem-list" role="list">
-            <!-- Poem titles will be loaded here -->
-          </ul>
-        </nav>
-        <div class="menu-scrim" data-menu-scrim hidden></div>
-      </header>
-
-      <!-- Ambient floating particles -->
-      <div class="particles" aria-hidden="true">
-          <!-- particles positions and delays controlled by CSS, no inline styles -->
-          <div class="particle particle--s p-1"></div>
-          <div class="particle particle--xs p-2"></div>
-          <div class="particle particle--m p-3"></div>
-          <div class="particle particle--xs p-4"></div>
-          <div class="particle particle--s p-5"></div>
-          <div class="particle particle--xs p-6"></div>
-          <div class="particle particle--m p-7"></div>
-          <div class="particle particle--s p-8"></div>
-          <div class="particle particle--xs p-9"></div>
-      </div>
-
-      <main id="main" class="poem-content" role="main">
-        <article id="poem-display" class="poem-display" aria-live="polite">
-          <p class="welcome-message">Select a poem from the list to begin your journey</p>
-        </article>
-      </main>
-    </div>
-
-    <footer class="site-footer">
-      <p class="site-footer__text">© <span id="year"></span> The Little Boy That Drowned</p>
-    </footer>
-
-    <!-- Defer non-critical scripts -->
-    <script src="script.js" defer></script>
-    <!-- Preload next likely poem file list (poems.json) if present -->
-    <link rel="prefetch" href="poems/poems.json" as="fetch" crossorigin>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

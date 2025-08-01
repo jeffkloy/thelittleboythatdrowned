@@ -1,0 +1,57 @@
+import { useEffect, useState } from 'react';
+import { parsePoemMarkdown, parseAnalysisMarkdown } from '../lib/markdown';
+
+export type Parsed = { title: string; content: string };
+
+export function usePoem(filename: string | null) {
+  const [poem, setPoem] = useState<Parsed | null>(null);
+  const [analysis, setAnalysis] = useState<Parsed | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    async function run() {
+      if (!filename) {
+        setPoem(null);
+        setAnalysis(null);
+        return;
+      }
+      setLoading(true);
+      setError(null);
+      try {
+        const base = new URL(import.meta.env.BASE_URL, window.location.origin);
+
+        // Load poem
+        const poemUrl = new URL('poems/' + encodeURIComponent(filename), base).toString();
+        const poemRes = await fetch(poemUrl, { credentials: 'same-origin' });
+        if (!poemRes.ok) throw new Error(`Failed to load poem (${poemRes.status})`);
+        const poemText = await poemRes.text();
+        const parsedPoem = parsePoemMarkdown(poemText);
+        if (!alive) return;
+        setPoem(parsedPoem);
+
+        // Background-load analysis
+        const name = filename.replace(/\.md$/, '');
+        const analysisUrl = new URL('analyses/' + encodeURIComponent(name) + ' - Analysis.md', base).toString();
+        fetch(analysisUrl, { credentials: 'same-origin' })
+          .then(async (r) => (r.ok ? r.text() : null))
+          .then((text) => {
+            if (!alive || !text) return;
+            setAnalysis(parseAnalysisMarkdown(text));
+          })
+          .catch(() => void 0);
+      } catch (e: any) {
+        if (alive) setError(e?.message || 'Unknown error loading poem');
+      } finally {
+        if (alive) setLoading(false);
+      }
+    }
+    run();
+    return () => {
+      alive = false;
+    };
+  }, [filename]);
+
+  return { poem, analysis, loading, error };
+}

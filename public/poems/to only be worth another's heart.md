@@ -1,6 +1,6 @@
 # “to only be worth another's heart”
 
-i feel too much, and every time it gets bad, i tell my friends and family that they don't need to worry about me so much,
+i feel too much, and every time it gets bad,  i tell my friends and family that they don't need to worry about me so much,
 or pay attention to the songs i share with them,   and that i could never expect them to save me; i know they can’t, and they'll kill themselves on the inside trying; but honestly, when i get so low and feel so broken, i just want to scream so loud that it is a shot heard across the world and cry so much that all of my insides dry out,*but i really just want to be loved and to be in loved with.*
 
 i remind my mother that she can be there for me all of her life, but she can't expect that when she's gone or passed away that things won't get so hard for me again, and she'll never be able to save me from afar or from heaven, and i'd more than likely not die from natural causes, but from a painful doing of my own self.
