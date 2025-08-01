@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages (Actions to Pages from main)
+name: Deploy Vite React App to GitHub Pages
 
 on:
   push:
@@ -12,17 +12,17 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
-    name: Build Vite site
+    name: Build Vite React App
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -31,27 +31,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: |
-          if [ -f "eslint.config.js" ]; then
-            npm run lint --if-present || true
-          fi
+      - name: Run linting
+        run: npm run lint || true
 
-      - name: Typecheck
-        run: npm run typecheck --if-present || echo "Skipping typecheck (no script)"
+      - name: Run type checking
+        run: npm run typecheck
 
-      - name: Build
-        env:
-          VITE_BASE: /thelittleboythatdrowned/
+      - name: Build Vite app
         run: npm run build
 
-      - name: Create 404 fallback for SPA
+      - name: Create 404 fallback for React Router
         run: cp dist/index.html dist/404.html
 
-      - name: Upload build artifact for Pages
+      - name: Upload artifact for GitHub Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ./dist
 
   deploy:
     name: Deploy to GitHub Pages
@@ -61,6 +56,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
