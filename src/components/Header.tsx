@@ -10,9 +10,9 @@ declare global {
 export type HeaderProps = {
   /**
    * Optional render function to inject mobile nav content (TagFilters + PoemList)
-   * inside the drawer when open on small screens.
+   * inside the drawer on small screens.
    */
-  renderMobileNav?: (isOpen: boolean) => React.ReactNode;
+  renderMobileNav?: () => React.ReactNode;
 };
 
 /**
@@ -111,7 +111,7 @@ export default function Header({ renderMobileNav }: HeaderProps) {
           ref={btnRef}
           className="nav-toggle"
           type="button"
-          aria-controls="site-nav"
+          aria-controls="mobile-nav"
           aria-expanded={open}
           aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
           onClick={() => setOpen(v => !v)}
@@ -127,13 +127,13 @@ export default function Header({ renderMobileNav }: HeaderProps) {
       {/* Drawer container (used for focus and hit testing on mobile) */}
       <nav
         ref={navRef}
-        id="site-nav"
+        id="mobile-nav"
         className={`site-nav ${open ? 'open' : ''}`}
         role="navigation"
         aria-label="Primary"
       >
-        {/* Render mobile nav content when open, if provided */}
-        {renderMobileNav ? renderMobileNav(open) : null}
+        {/* Render mobile nav content, if provided */}
+        {renderMobileNav ? renderMobileNav() : null}
       </nav>
       {/* Scrim must be below the toggle and drawer; CSS z-index ensures correct stacking */}
       <div className="menu-scrim" hidden={!open} onClick={() => { setOpen(false); setTimeout(() => btnRef.current?.focus?.(), 0); }} />

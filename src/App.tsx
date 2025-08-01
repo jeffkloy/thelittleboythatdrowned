@@ -49,18 +49,16 @@ export default function App() {
   return (
     <div className="layout">
       <Header
-        renderMobileNav={(isMobileOpen) =>
-          isMobileOpen ? (
-            <NavContent
-              allTags={tags}
-              total={total}
-              activeTags={activeTags}
-              setActiveTags={setActiveTags}
-              poems={poems}
-              onSelect={handleSelect}
-            />
-          ) : null
-        }
+        renderMobileNav={() => (
+          <NavContent
+            allTags={tags}
+            total={total}
+            activeTags={activeTags}
+            setActiveTags={setActiveTags}
+            poems={poems}
+            onSelect={handleSelect}
+          />
+        )}
       />
       <Particles />
 
