@@ -24,6 +24,15 @@
       ]
     },
     {
+      "filename": "Blackwell's Light.md",
+      "tags": [
+        "hope",
+        "loss",
+        "mental-health",
+        "place"
+      ]
+    },
+    {
       "filename": "California.md",
       "tags": [
         "addiction",
@@ -206,7 +215,7 @@
       ]
     }
   ],
-  "count": 28,
+  "count": 29,
   "generated": false,
-  "lastUpdated": "2025-07-31T22:20:53.540971"
+  "lastUpdated": "2025-08-01T00:00:00.000000"
 }
