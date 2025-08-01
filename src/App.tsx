@@ -28,13 +28,13 @@ export default function App() {
   const { poems, tags, loading, error } = usePoems();
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [selected, setSelected] = useState<string | null>(null);
-  const [shouldCloseMenu, setShouldCloseMenu] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
     setSelected(filename);
-    // Trigger menu close on mobile
-    setShouldCloseMenu(true);
+    // Close menu on mobile when poem is selected
+    setIsMenuOpen(false);
     const idx = poems.findIndex((p: { filename: string; tags: string[] }) => p.filename === filename);
     const next = idx >= 0 && idx + 1 < poems.length ? poems[idx + 1].filename : null;
     if (next) {
@@ -62,7 +62,8 @@ export default function App() {
     <div className="layout">
       <Header 
         navContent={mobileNavContent}
-        onMenuClose={() => setShouldCloseMenu(false)}
+        isMenuOpen={isMenuOpen}
+        onMenuToggle={setIsMenuOpen}
       />
       <Particles />
 

@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 type Props = {
   navContent?: React.ReactNode;
-  onMenuClose?: () => void;
+  isMenuOpen?: boolean;
+  onMenuToggle?: (open: boolean) => void;
 };
 
 /**
  * Header with mobile hamburger menu positioned above the title
  */
-export default function Header({ navContent, onMenuClose }: Props) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+export default function Header({ navContent, isMenuOpen = false, onMenuToggle }: Props) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -17,7 +17,7 @@ export default function Header({ navContent, onMenuClose }: Props) {
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape' && isMenuOpen) {
-        setIsMenuOpen(false);
+        onMenuToggle?.(false);
         menuButtonRef.current?.focus();
       }
     }
@@ -32,15 +32,14 @@ export default function Header({ navContent, onMenuClose }: Props) {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, onMenuToggle]);
 
   function toggleMenu() {
-    setIsMenuOpen(!isMenuOpen);
+    onMenuToggle?.(!isMenuOpen);
   }
 
   function closeMenu() {
-    setIsMenuOpen(false);
-    onMenuClose?.();
+    onMenuToggle?.(false);
     menuButtonRef.current?.focus();
   }
 
