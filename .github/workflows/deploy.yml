@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages (main/docs)
+name: Deploy to GitHub Pages (Actions to Pages from main)
 
 on:
   push:
@@ -6,12 +6,18 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build-to-docs:
+  build:
+    name: Build Vite site
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,18 +45,22 @@ jobs:
           VITE_BASE: /thelittleboythatdrowned/
         run: npm run build
 
-      - name: Publish build to docs/ on main
-        run: |
-          rm -rf docs
-          mkdir -p docs
-          cp -R dist/* docs/
-          # SPA fallback for GitHub Pages
-          cp -f docs/index.html docs/404.html
+      - name: Create 404 fallback for SPA
+        run: cp dist/index.html dist/404.html
 
-      - name: Commit docs/ to main
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs
-          git diff --cached --quiet || git commit -m "chore(ci): update docs/ build for GitHub Pages"
-          git push
+      - name: Upload build artifact for Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
