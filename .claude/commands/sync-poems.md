@@ -3,9 +3,9 @@
 **Purpose**: Synchronize the poetry collection, update tags, and generate AI-powered analyses for new poems.
 
 **What it does**:
-1. Scans the `poems/` directory for all `.md` files
+1. Scans the `public/poems/` directory for all `.md` files
 2. Extracts thematic tags from poem content using keyword analysis
-3. Updates `poems/poems.json` with poem metadata and tags
+3. Updates `public/poems/poems.json` with poem metadata and tags
 4. Generates comprehensive AI analyses for any new poems
 5. Checks for orphaned analyses (analyses without corresponding poems)
 
@@ -28,9 +28,9 @@
 4. **Summary**: Provides a detailed report of all changes made
 
 **Implementation**: When this command is run, Claude should:
-1. Check for new poems in the `poems/` directory
+1. Check for new poems in the `public/poems/` directory
 2. Read each poem's content to extract appropriate tags
 3. For any poems without analyses, generate a comprehensive analysis
 4. Update poems.json with all poem metadata
-5. Save analyses to the `analyses/` directory
+5. Save analyses to the `public/analyses/` directory
 6. Report on what was processed
