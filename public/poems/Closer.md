@@ -7,9 +7,9 @@ A better life for ourselves
 A better life for others
 
 Close to your beers
-You threw your anger out over everything
-From our room to the street
-From the river to the sea
+You threw your always-drunk anger out on everyone
+Now from our room to the street
+Yet once "from the river to the sea"
 
 Close to your fears
 You couldn’t trust anyone
