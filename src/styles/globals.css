@@ -162,6 +162,15 @@ html, body, #root {
   border-bottom: 1px solid rgba(74, 74, 74, 0.15);
 }
 
+/* Mobile sticky header */
+@media (max-width: 767px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+}
+
 .site-header__inner {
   padding: var(--space-l) var(--space-m) var(--space-m);
   max-width: var(--container-max);
