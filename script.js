@@ -422,19 +422,36 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Setup nav toggle behavior (mobile)
     if (navToggleBtn && siteNav) {
-      navToggleBtn.addEventListener('click', () => {
+      // Function to toggle menu
+      const toggleMenu = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        console.log('Menu toggle clicked');
+        
         const isOpen = siteNav.getAttribute('data-open') === 'true';
+        console.log('Current state:', isOpen ? 'open' : 'closed');
+        
         if (isOpen) {
           siteNav.removeAttribute('data-open');
           navToggleBtn.setAttribute('aria-expanded', 'false');
+          console.log('Menu closed');
         } else {
           siteNav.setAttribute('data-open', 'true');
           navToggleBtn.setAttribute('aria-expanded', 'true');
-          // manage focus for a11y: focus first link when opened
-          const firstLink = siteNav.querySelector('a');
-          if (firstLink) firstLink.focus();
+          console.log('Menu opened');
+          
+          // Don't auto-focus on mobile as it can cause issues
+          if (!('ontouchstart' in window)) {
+            const firstLink = siteNav.querySelector('a');
+            if (firstLink) firstLink.focus();
+          }
         }
-      });
+      };
+      
+      // Add both click and touchend for better iOS support
+      navToggleBtn.addEventListener('click', toggleMenu);
+      navToggleBtn.addEventListener('touchend', toggleMenu);
 
       // Close nav on Escape
       document.addEventListener('keydown', (e) => {

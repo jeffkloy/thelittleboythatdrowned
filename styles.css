@@ -186,22 +186,6 @@ body {
   margin-top: var(--space-2xs);
 }
 
-/* Accessible skip link */
-.skip-link {
-  position: absolute;
-  top: -40px;
-  left: 0;
-  background: #1b4cff;
-  color: #fff;
-  padding: 0.5rem 0.75rem;
-  border-radius: var(--radius-s);
-  z-index: calc(var(--z-ui) + 1);
-}
-.skip-link:focus {
-  top: 0;
-  outline: none;
-  box-shadow: var(--focus-shadow);
-}
 
 /* Nav toggle (hamburger) */
 .nav-toggle {
@@ -215,6 +199,10 @@ body {
   background: transparent;
   color: var(--color-text);
   border: 1px solid var(--color-border);
+  /* iOS Safari fix for touch events */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  cursor: pointer;
 }
 .nav-toggle:hover {
   background: rgba(255,255,255,0.04);
