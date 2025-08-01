@@ -10,6 +10,8 @@ const tagButtons = document.getElementById('tag-buttons');
 let navToggleBtn;
 let siteNav;
 let yearEl;
+// Scrim element for outside-click close
+let menuScrim;
 
 // Function to fetch the list of poems from the poetry directory
 async function fetchPoemList() {
@@ -374,8 +376,7 @@ function updatePoemList() {
             loadPoem(poem.filename, e.currentTarget);
             // Close mobile nav after selection for better UX
             if (siteNav && window.matchMedia('(max-width: 767px)').matches) {
-              siteNav.removeAttribute('data-open');
-              if (navToggleBtn) navToggleBtn.setAttribute('aria-expanded', 'false');
+              closeMobileMenu();
             }
         });
         
@@ -400,67 +401,90 @@ function createNavigation() {
     updatePoemList();
 }
 
+
 // Initialize the page
 document.addEventListener('DOMContentLoaded', async () => {
-    console.log('DOM Content Loaded - Initializing...');
-    
     // Cache new elements
-    navToggleBtn = document.querySelector('.nav-toggle');
+    navToggleBtn = document.querySelector('[data-menu-toggle]') || document.querySelector('.nav-toggle');
     siteNav = document.getElementById('site-nav');
     yearEl = document.getElementById('year');
-    
-    console.log('Elements found:', {
-        poemList: !!poemList,
-        poemDisplay: !!poemDisplay,
-        tagButtons: !!tagButtons,
-        navToggleBtn: !!navToggleBtn,
-        siteNav: !!siteNav
-    });
+    menuScrim = document.querySelector('[data-menu-scrim]');
 
     // Footer year
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Setup nav toggle behavior (mobile)
-    if (navToggleBtn && siteNav) {
-      // Function to toggle menu
-      const toggleMenu = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        console.log('Menu toggle clicked');
-        
-        const isOpen = siteNav.getAttribute('data-open') === 'true';
-        console.log('Current state:', isOpen ? 'open' : 'closed');
-        
-        if (isOpen) {
-          siteNav.removeAttribute('data-open');
-          navToggleBtn.setAttribute('aria-expanded', 'false');
-          console.log('Menu closed');
-        } else {
-          siteNav.setAttribute('data-open', 'true');
-          navToggleBtn.setAttribute('aria-expanded', 'true');
-          console.log('Menu opened');
-          
-          // Don't auto-focus on mobile as it can cause issues
-          if (!('ontouchstart' in window)) {
-            const firstLink = siteNav.querySelector('a');
-            if (firstLink) firstLink.focus();
-          }
-        }
-      };
-      
-      // Add both click and touchend for better iOS support
-      navToggleBtn.addEventListener('click', toggleMenu);
-      navToggleBtn.addEventListener('touchend', toggleMenu);
+    // Mobile menu helpers
+    let menuOpen = false;
+    function syncMenuA11y() {
+      if (!navToggleBtn) return;
+      navToggleBtn.setAttribute('aria-expanded', menuOpen ? 'true' : 'false');
+      navToggleBtn.setAttribute('aria-label', menuOpen ? 'Close navigation menu' : 'Open navigation menu');
+    }
+    function lockScroll(lock) {
+      const root = document.documentElement;
+      const body = document.body;
+      root.classList.toggle('menu-open', lock);
+      body.classList.toggle('menu-open', lock);
+    }
+    function openMobileMenu() {
+      if (!siteNav) return;
+      menuOpen = true;
+      siteNav.classList.add('open');
+      document.querySelector('.site-header')?.classList.add('is-open');
+      if (menuScrim) menuScrim.hidden = false;
+      lockScroll(true);
+      syncMenuA11y();
+      // Focus first focusable in menu
+      setTimeout(() => {
+        const first = siteNav.querySelector('a, button, [tabindex]:not([tabindex="-1"])');
+        if (first && first.focus) first.focus();
+      }, 0);
+    }
+    function closeMobileMenu() {
+      if (!siteNav) return;
+      menuOpen = false;
+      siteNav.classList.remove('open');
+      document.querySelector('.site-header')?.classList.remove('is-open');
+      if (menuScrim) menuScrim.hidden = true;
+      lockScroll(false);
+      syncMenuA11y();
+      // Return focus to toggle for accessibility
+      if (navToggleBtn && navToggleBtn.focus) navToggleBtn.focus();
+    }
+    function toggleMobileMenu() {
+      if (menuOpen) closeMobileMenu(); else openMobileMenu();
+    }
 
-      // Close nav on Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && siteNav.getAttribute('data-open') === 'true') {
-          siteNav.removeAttribute('data-open');
-          navToggleBtn.setAttribute('aria-expanded', 'false');
-          navToggleBtn.focus();
+    // Attach toggle handlers if elements exist
+    if (navToggleBtn) {
+      navToggleBtn.addEventListener('click', (e) => {
+        toggleMobileMenu();
+      });
+      // Ensure keyboard works even if UA doesn't trigger click on Space
+      navToggleBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleMobileMenu();
         }
       });
+      // Initialize correct a11y state
+      syncMenuA11y();
+    }
+
+    // Close on Escape anywhere
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && siteNav && siteNav.classList.contains('open')) {
+        closeMobileMenu();
+      }
+    });
+
+    // Outside click via scrim
+    if (menuScrim) {
+      menuScrim.addEventListener('click', () => {
+        if (siteNav && siteNav.classList.contains('open')) {
+          closeMobileMenu();
+        }
+      }, { passive: true });
     }
 
     // Add initial opacity transition to poem display

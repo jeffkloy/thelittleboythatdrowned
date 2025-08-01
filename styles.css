@@ -222,9 +222,33 @@ body {
   margin: 0 auto;
   padding: 0 var(--space-m) var(--space-m);
   display: none; /* hidden by default on mobile */
+  position: fixed; /* ensure above content and below header */
+  top: 72px; /* approximate header height; adjusted via header padding */
+  right: 0;
+  left: 0;
+  z-index: calc(var(--z-ui) + 1);
+  background: var(--color-surface);
+  border-bottom: 1px solid rgba(74, 74, 74, 0.15);
+  max-height: calc(100dvh - 72px);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: transform 180ms ease, opacity 160ms ease;
 }
-.site-nav[data-open="true"] {
+.site-nav.open,
+.site-header.is-open .site-nav {
   display: block;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Scrim for outside click on mobile */
+.menu-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: var(--z-ui);
 }
 
 .site-nav__heading {
@@ -790,9 +814,16 @@ header h1 {
     padding: var(--space-xl) var(--space-m) var(--space-m);
   }
   .nav-toggle { display: none; }
+  .menu-scrim { display: none !important; }
   .site-nav {
+    position: static;
+    transform: none !important;
+    opacity: 1 !important;
     display: block !important; /* horizontal nav at tablet+ */
     padding-bottom: var(--space-l);
+    max-height: none;
+    overflow: visible;
+    border-bottom: none;
   }
   .site-nav__heading {
     margin-bottom: var(--space-xs);
@@ -899,6 +930,12 @@ header h1 {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  
+  /* Accessibility: hide toggle if JS disabled (optional) */
+  html.no-js .nav-toggle { display: none; }
+  
+  /* Prevent background scroll when menu open */
+  html.menu-open, body.menu-open { overflow: hidden; }
 }
 
 /* Utilities & a11y */

@@ -30,17 +30,19 @@
           <button
             class="nav-toggle"
             type="button"
+            data-menu-toggle
             aria-controls="site-nav"
             aria-expanded="false"
+            aria-label="Open navigation menu"
           >
             <span class="visually-hidden">Menu</span>
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
           </button>
         </div>
 
-        <nav id="site-nav" class="site-nav" role="navigation" aria-label="Primary">
+        <nav id="site-nav" class="site-nav" role="navigation" aria-label="Primary" data-menu>
           <div class="tag-filters" role="group" aria-label="Filter poems by tag">
             <h2 class="site-nav__heading">Filter by Theme</h2>
             <div id="tag-buttons" class="tag-buttons">
@@ -52,6 +54,7 @@
             <!-- Poem titles will be loaded here -->
           </ul>
         </nav>
+        <div class="menu-scrim" data-menu-scrim hidden></div>
       </header>
 
       <!-- Ambient floating particles -->
