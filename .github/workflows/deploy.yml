@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages (main/docs)
 
 on:
   push:
@@ -7,11 +7,9 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
-  build-and-deploy:
+  build-to-docs:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,14 +39,18 @@ jobs:
           VITE_BASE: /thelittleboythatdrowned/
         run: npm run build
 
-      - name: Create 404 fallback
+      - name: Publish build to docs/ on main
         run: |
-          cp dist/index.html dist/404.html
+          rm -rf docs
+          mkdir -p docs
+          cp -R dist/* docs/
+          # SPA fallback for GitHub Pages
+          cp -f docs/index.html docs/404.html
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-          force_orphan: true
+      - name: Commit docs/ to main
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs
+          git diff --cached --quiet || git commit -m "chore(ci): update docs/ build for GitHub Pages"
+          git push
