@@ -27,7 +27,7 @@ export function NavContent(props: {
 }
 
 export default function App() {
-  const { poems, tags, loading, error } = usePoems();
+  const { poems, tags, loading, error, lastUpdated } = usePoems();
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -119,7 +119,10 @@ export default function App() {
       </div>
 
       <footer className="site-footer">
-        <p className="site-footer__text">© {new Date().getFullYear()} The Little Boy That Drowned</p>
+        <p className="site-footer__text">
+          © {new Date().getFullYear()} The Little Boy That Drowned
+          {lastUpdated && <span className="site-footer__updated"> • Last updated: {lastUpdated}</span>}
+        </p>
       </footer>
     </div>
   );

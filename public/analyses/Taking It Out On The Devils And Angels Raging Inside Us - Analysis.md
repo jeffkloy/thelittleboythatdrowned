@@ -1,4 +1,4 @@
-# Taking It Out On The Devils And Angels Raging Inside Us - Analysis
+# "Taking It Out On The Devils And Angels Raging Inside Us" - Analysis
 
 ## Overview
 

@@ -1,4 +1,4 @@
-# Taking It Out On The Devils And Angels Raging Inside Us
+# "Taking It Out On The Devils And Angels Raging Inside Us"
 
 Six questions for the devil in their bloodstream - a curated list to help one find closure when having left a partner that self-deteriorates themselves through the addiction, overconsumption, and abuse of substances like alcohol:
 

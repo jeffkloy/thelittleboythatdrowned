@@ -301,9 +301,13 @@ html, body, #root {
 .menu-toggle--floating {
   position: fixed;
   top: var(--space-m);
-  left: 50%;
-  transform: translateX(-50%);
+  right: var(--space-m);
   z-index: 60;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 /* Show mobile menu button only on mobile */
@@ -920,6 +924,9 @@ header h1 {
   text-align: center;
   font-size: var(--fs-300);
 }
+.site-footer__updated {
+  opacity: 0.7;
+}
 
 /* Scrollbar styling */
 ::-webkit-scrollbar { width: 8px; }
@@ -961,7 +968,7 @@ header h1 {
 @media (min-width: 1024px) {
   .layout-columns {
     display: grid;
-    grid-template-columns: 33% 67%;
+    grid-template-columns: 35% 65%;
     gap: 0;
     align-items: start;
   }

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { validatePoemMetadata, type PoemMetadata } from '../lib/validation';
 
 export type PoemMeta = { filename: string; tags: string[] };
-export type PoemsJson = { poems: PoemMeta[] };
+export type PoemsJson = { poems: PoemMeta[]; lastUpdated?: string };
 
 export function usePoems() {
   const [data, setData] = useState<PoemsJson | null>(null);
@@ -30,7 +30,10 @@ export function usePoems() {
         }
         
         if (alive) { 
-          setData({ poems: json.poems as PoemMetadata[] }); 
+          setData({ 
+            poems: json.poems as PoemMetadata[],
+            lastUpdated: json.lastUpdated 
+          }); 
           setError(null); 
         }
       } catch (e) {
@@ -62,5 +65,7 @@ export function usePoems() {
       .map(([tag, count]) => ({ tag, count }));
   }, [poems]);
 
-  return { poems, tags, loading, error };
+  const lastUpdated = useMemo(() => data?.lastUpdated || null, [data]);
+
+  return { poems, tags, loading, error, lastUpdated };
 }
