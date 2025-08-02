@@ -1,13 +1,42 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { usePoem } from '../hooks/usePoem';
+import { cleanPoemTitle } from '../lib/urls';
 
-type Props = { filename: string | null };
+type Props = { 
+  filename: string | null;
+  initialView?: 'poem' | 'analysis';
+};
 
-export default function PoemView({ filename }: Props) {
+export default function PoemView({ filename, initialView = 'poem' }: Props) {
   const { poem, analysis, loading, error } = usePoem(filename);
-  const [view, setView] = useState<'poem' | 'analysis'>('poem');
+  const [view, setView] = useState<'poem' | 'analysis'>(initialView);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  useEffect(() => setView('poem'), [filename]);
+  // Update view state when initialView changes (URL change)
+  useEffect(() => {
+    setView(initialView);
+  }, [initialView]);
+
+  // Update view state when filename changes (different poem selected)
+  useEffect(() => {
+    // When switching poems, default back to poem view unless URL specifies analysis
+    const hasAnalysisParam = searchParams.has('analysis');
+    setView(hasAnalysisParam ? 'analysis' : 'poem');
+  }, [filename, searchParams]);
+
+  // Handle view toggle and update URL
+  const handleViewChange = useCallback((newView: 'poem' | 'analysis') => {
+    if (!filename) return;
+    
+    const cleanName = cleanPoemTitle(filename);
+    if (newView === 'analysis') {
+      setSearchParams({ analysis: cleanName });
+    } else {
+      setSearchParams({ poem: cleanName });
+    }
+    setView(newView);
+  }, [filename, setSearchParams]);
 
   const content = useMemo(() => {
     if (loading) return <p className="loading">Loading poem</p>;
@@ -25,8 +54,8 @@ export default function PoemView({ filename }: Props) {
           <div className="content-header">
             <h2>{analysis.title}</h2>
             <div className="view-toggle">
-              <button className="toggle-btn" data-view="poem" onClick={() => setView('poem')}>Poem</button>
-              <button className="toggle-btn active" data-view="analysis" onClick={() => setView('analysis')}>Analysis</button>
+              <button className="toggle-btn" data-view="poem" onClick={() => handleViewChange('poem')}>Poem</button>
+              <button className="toggle-btn active" data-view="analysis" onClick={() => handleViewChange('analysis')}>Analysis</button>
             </div>
           </div>
           <div className="analysis-text" dangerouslySetInnerHTML={{ __html: analysis.content }} />
@@ -39,8 +68,8 @@ export default function PoemView({ filename }: Props) {
           <div className="content-header">
             <h2>{poem.title}</h2>
             <div className="view-toggle">
-              <button className="toggle-btn active" data-view="poem" onClick={() => setView('poem')}>Poem</button>
-              <button className="toggle-btn" data-view="analysis" onClick={() => setView('analysis')}>Analysis</button>
+              <button className="toggle-btn active" data-view="poem" onClick={() => handleViewChange('poem')}>Poem</button>
+              <button className="toggle-btn" data-view="analysis" onClick={() => handleViewChange('analysis')}>Analysis</button>
             </div>
           </div>
           <div className="poem-text" dangerouslySetInnerHTML={{ __html: poem.content }} />
@@ -48,7 +77,7 @@ export default function PoemView({ filename }: Props) {
       );
     }
     return <p className="welcome-message">Select a poem from the list to begin your journey</p>;
-  }, [loading, error, poem, analysis, view, filename]);
+  }, [loading, error, poem, analysis, view, filename, handleViewChange]);
 
   return (
     <article id="poem-display" className="poem-display" aria-live="polite">

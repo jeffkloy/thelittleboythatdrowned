@@ -34,22 +34,29 @@ export default function App() {
 
   // Get selected poem from URL
   const poemParam = searchParams.get('poem');
+  const analysisParam = searchParams.get('analysis');
+  
+  // Determine which parameter to use (analysis takes precedence if both are present)
+  const activeParam = analysisParam || poemParam;
+  const viewMode = analysisParam ? 'analysis' : 'poem';
+  
   // Convert URL param to filename with .md extension
-  const selectedFilename = poemParam ? addMdExtension(poemParam) : null;
+  const selectedFilename = activeParam ? addMdExtension(activeParam) : null;
   
   // Initialize selected poem from URL on mount
   useEffect(() => {
-    if (poemParam && poems.length > 0) {
+    if (activeParam && poems.length > 0) {
       // Validate that the poem exists (add .md extension for comparison)
-      const filenameWithMd = addMdExtension(poemParam);
+      const filenameWithMd = addMdExtension(activeParam);
       const poemExists = poems.some(p => p.filename === filenameWithMd);
       if (!poemExists) {
-        // Remove invalid poem from URL
+        // Remove invalid poem/analysis from URL
         searchParams.delete('poem');
+        searchParams.delete('analysis');
         setSearchParams(searchParams);
       }
     }
-  }, [poemParam, poems, searchParams, setSearchParams]);
+  }, [activeParam, poems, searchParams, setSearchParams]);
 
   // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
@@ -113,7 +120,7 @@ export default function App() {
               <p className="error">No poems found. Please ensure poems/poems.json exists.</p>
             </article>
           ) : (
-            <PoemView filename={selectedFilename} />
+            <PoemView filename={selectedFilename} initialView={viewMode} />
           )}
         </main>
       </div>
