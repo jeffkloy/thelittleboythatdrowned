@@ -1,4 +1,4 @@
-# "Furthest and Closest" - Analysis
+# "Furthest and Closest"
 
 "Furthest and Closest" explores the paradoxical nature of deep friendship—how someone can be simultaneously distant in blood relation yet intimately close in spirit and connection. The poem celebrates an enduring friendship that transcends physical distance, life changes, and the passage of time.
 
