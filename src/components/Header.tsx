@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
   navContent?: React.ReactNode;
@@ -62,7 +63,9 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
       <header className="site-header" role="banner">
         <div className="site-header__inner">
           <div className="brand">
-            <h1 className="brand__title">The Little Boy That Drowned</h1>
+            <Link to="/" className="brand__link">
+              <h1 className="brand__title">The Little Boy That Drowned</h1>
+            </Link>
             <p className="brand__subtitle">Intimate verses on love, loss, addiction, belonging, and the quiet spaces in between: a collection of poems by @jeffkloy</p>
           </div>
         </div>

@@ -1,45 +1,52 @@
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
+// Configure marked for standard markdown (used for analysis)
+const analysisOptions = {
+  gfm: true,
+  breaks: false,
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+};
+
+// Configure marked for poetry (preserve line breaks)
+const poemOptions = {
+  gfm: true,
+  breaks: true,  // Convert line breaks to <br> for poetry
+  pedantic: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false
+};
+
 export function parsePoemMarkdown(md: string) {
   const lines = md.split('\n');
   const title = lines[0]?.replace(/^#\s*/, '') || '';
-  let content = lines.slice(1).join('\n');
-  content = content.replace(/\n\n/g, '</p><p>').replace(/\n/g, '<br>').trim();
-  if (content && !content.startsWith('<p>') && !content.startsWith('<h')) content = '<p>' + content;
-  if (
-    content &&
-    !content.endsWith('</p>') &&
-    !content.endsWith('</ul>') &&
-    !content.endsWith('</h2>') &&
-    !content.endsWith('</h3>')
-  ) {
-    content = content + '</p>';
-  }
+  const rawContent = lines.slice(1).join('\n');
+  
+  marked.setOptions(poemOptions);
+  const unsafeHtml = marked(rawContent);
+  const content = DOMPurify.sanitize(unsafeHtml, {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li'],
+    ALLOWED_ATTR: []
+  });
+  
   return { title, content };
 }
 
 export function parseAnalysisMarkdown(md: string) {
   const lines = md.split('\n');
   const title = lines[0]?.replace(/^#\s*/, '') || '';
-  let content = lines.slice(1).join('\n');
-  content = content
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>')
-    .replace(/<\/li>\n<li>/g, '</li><li>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/\n/g, '<br>')
-    .trim();
-  if (content && !content.startsWith('<p>') && !content.startsWith('<h')) content = '<p>' + content;
-  if (
-    content &&
-    !content.endsWith('</p>') &&
-    !content.endsWith('</ul>') &&
-    !content.endsWith('</h2>') &&
-    !content.endsWith('</h3>')
-  ) {
-    content = content + '</p>';
-  }
+  const rawContent = lines.slice(1).join('\n');
+  
+  marked.setOptions(analysisOptions);
+  const unsafeHtml = marked(rawContent);
+  const content = DOMPurify.sanitize(unsafeHtml, {
+    ALLOWED_TAGS: ['p', 'br', 'strong', 'em', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ul', 'ol', 'li', 'blockquote', 'code', 'pre'],
+    ALLOWED_ATTR: []
+  });
+  
   return { title, content };
 }

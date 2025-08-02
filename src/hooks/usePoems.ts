@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { validatePoemMetadata, type PoemMetadata } from '../lib/validation';
 
 export type PoemMeta = { filename: string; tags: string[] };
 export type PoemsJson = { poems: PoemMeta[] };
@@ -17,11 +18,23 @@ export function usePoems() {
         const poemsUrl = new URL('poems/poems.json', base).toString();
         const res = await fetch(poemsUrl, { credentials: 'same-origin' });
         if (!res.ok) throw new Error(`Failed to fetch poems.json (${res.status})`);
-        const json = (await res.json()) as PoemsJson;
-        if (!Array.isArray(json.poems)) throw new Error('Invalid poems.json format');
-        if (alive) { setData(json); setError(null); }
-      } catch (e: any) {
-        if (alive) setError(e?.message || 'Unknown error fetching poems.json');
+        const json = await res.json();
+        
+        // Validate the structure of poems.json
+        if (!json || typeof json !== 'object' || !('poems' in json)) {
+          throw new Error('Invalid poems.json format: missing poems array');
+        }
+        
+        if (!validatePoemMetadata(json.poems)) {
+          throw new Error('Invalid poems.json format: invalid poem metadata');
+        }
+        
+        if (alive) { 
+          setData({ poems: json.poems as PoemMetadata[] }); 
+          setError(null); 
+        }
+      } catch (e) {
+        if (alive) setError((e instanceof Error ? e.message : String(e)) || 'Unknown error fetching poems.json');
       } finally {
         if (alive) setLoading(false);
       }

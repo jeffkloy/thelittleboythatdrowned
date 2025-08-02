@@ -1,4 +1,6 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { getPoemUrl, cleanPoemTitle } from '../lib/urls';
 
 export type PoemMeta = { filename: string; tags: string[] };
 
@@ -21,10 +23,6 @@ export default function PoemList({ poems, activeTags, onSelect }: Props) {
     return poems.filter((p) => (p.tags || []).some((t) => activeTags.has(t)));
   }, [poems, activeTags]);
 
-  const handleActivate = useCallback((filename: string) => {
-    onSelect(filename);
-  }, [onSelect]);
-
   if (filtered.length === 0) {
     return <div className="no-results">No poems match the selected filters</div>;
   }
@@ -34,31 +32,16 @@ export default function PoemList({ poems, activeTags, onSelect }: Props) {
       <h2 className="site-nav__heading">Poems</h2>
       <ul className="poem-list" role="list">
         {filtered.map((p, index) => {
-          const title = p.filename.replace('.md', '');
+          const title = cleanPoemTitle(p.filename);
           return (
-            <li key={p.filename} style={{ ['--index' as any]: String(index) }} role="listitem">
-              <a
-                href="#"
-                role="button"
-                tabIndex={0}
+            <li key={p.filename} style={{ ['--index' as string]: String(index) }} role="listitem">
+              <Link
+                to={getPoemUrl(p.filename)}
                 aria-label={`Read poem: ${title}`}
-                onMouseDown={(e) => {
-                  // Prevent focus stealing that may interfere on some Safari builds
-                  e.preventDefault();
-                }}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleActivate(p.filename);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleActivate(p.filename);
-                  }
-                }}
+                onClick={() => onSelect(p.filename)}
               >
                 {title}
-              </a>
+              </Link>
             </li>
           );
         })}

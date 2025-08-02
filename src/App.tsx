@@ -1,10 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Particles from './components/Particles';
 import Header from './components/Header';
 import TagFilters from './components/TagFilters';
 import PoemList from './components/PoemList';
 import PoemView from './components/PoemView';
 import { usePoems } from './hooks/usePoems';
+import { addMdExtension, cleanPoemTitle } from './lib/urls';
 
 /** Shared nav content for both desktop sidebar and mobile drawer */
 export function NavContent(props: {
@@ -26,13 +28,34 @@ export function NavContent(props: {
 
 export default function App() {
   const { poems, tags, loading, error } = usePoems();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
-  const [selected, setSelected] = useState<string | null>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Get selected poem from URL
+  const poemParam = searchParams.get('poem');
+  // Convert URL param to filename with .md extension
+  const selectedFilename = poemParam ? addMdExtension(poemParam) : null;
+  
+  // Initialize selected poem from URL on mount
+  useEffect(() => {
+    if (poemParam && poems.length > 0) {
+      // Validate that the poem exists (add .md extension for comparison)
+      const filenameWithMd = addMdExtension(poemParam);
+      const poemExists = poems.some(p => p.filename === filenameWithMd);
+      if (!poemExists) {
+        // Remove invalid poem from URL
+        searchParams.delete('poem');
+        setSearchParams(searchParams);
+      }
+    }
+  }, [poemParam, poems, searchParams, setSearchParams]);
 
   // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
-    setSelected(filename);
+    // Update URL with selected poem (remove .md extension)
+    const cleanName = cleanPoemTitle(filename);
+    setSearchParams({ poem: cleanName });
     // Close menu on mobile when poem is selected
     setIsMenuOpen(false);
     const idx = poems.findIndex((p: { filename: string; tags: string[] }) => p.filename === filename);
@@ -90,7 +113,7 @@ export default function App() {
               <p className="error">No poems found. Please ensure poems/poems.json exists.</p>
             </article>
           ) : (
-            <PoemView filename={selected} />
+            <PoemView filename={selectedFilename} />
           )}
         </main>
       </div>

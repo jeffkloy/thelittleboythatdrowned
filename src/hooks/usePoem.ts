@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { parsePoemMarkdown, parseAnalysisMarkdown } from '../lib/markdown';
+import { isValidFilename, sanitizeFilename } from '../lib/validation';
 
 export type Parsed = { title: string; content: string };
 
@@ -17,13 +18,25 @@ export function usePoem(filename: string | null) {
         setAnalysis(null);
         return;
       }
+      
+      // Validate filename to prevent path traversal
+      if (!isValidFilename(filename)) {
+        setError('Invalid filename');
+        setPoem(null);
+        setAnalysis(null);
+        return;
+      }
+      
       setLoading(true);
       setError(null);
       try {
         const base = new URL(import.meta.env.BASE_URL, window.location.origin);
+        
+        // Sanitize filename before use
+        const safeFilename = sanitizeFilename(filename);
 
         // Load poem
-        const poemUrl = new URL('poems/' + encodeURIComponent(filename), base).toString();
+        const poemUrl = new URL('poems/' + encodeURIComponent(safeFilename), base).toString();
         const poemRes = await fetch(poemUrl, { credentials: 'same-origin' });
         if (!poemRes.ok) throw new Error(`Failed to load poem (${poemRes.status})`);
         const poemText = await poemRes.text();
@@ -32,7 +45,7 @@ export function usePoem(filename: string | null) {
         setPoem(parsedPoem);
 
         // Background-load analysis
-        const name = filename.replace(/\.md$/, '');
+        const name = safeFilename.replace(/\.md$/, '');
         const analysisUrl = new URL('analyses/' + encodeURIComponent(name) + ' - Analysis.md', base).toString();
         fetch(analysisUrl, { credentials: 'same-origin' })
           .then(async (r) => (r.ok ? r.text() : null))
@@ -41,8 +54,8 @@ export function usePoem(filename: string | null) {
             setAnalysis(parseAnalysisMarkdown(text));
           })
           .catch(() => void 0);
-      } catch (e: any) {
-        if (alive) setError(e?.message || 'Unknown error loading poem');
+      } catch (e) {
+        if (alive) setError((e instanceof Error ? e.message : String(e)) || 'Unknown error loading poem');
       } finally {
         if (alive) setLoading(false);
       }

@@ -325,11 +325,22 @@ html, body, #root {
   }
 }
 
+.brand__link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.brand__link:hover .brand__title {
+  opacity: 0.9;
+}
+
 .brand__title {
   font-size: var(--fs-700);
   font-weight: 400;
   letter-spacing: 0.02em;
   text-shadow: 2px 2px 4px rgba(0,0,0,.9);
+  transition: opacity 0.2s ease;
 }
 
 .brand__subtitle {
@@ -615,7 +626,6 @@ header h1 {
 
 /* Poem text */
 .poem-text {
-  white-space: pre-line;
   font-size: var(--fs-500);
   line-height: 1.9;
   color: var(--color-muted);
@@ -832,7 +842,6 @@ header h1 {
 
 /* Poem text with careful typography */
 .poem-text {
-    white-space: pre-line;
     font-size: clamp(1.05rem, 2vw, 1.2rem);
     line-height: 1.9;
     color: var(--text-secondary);
