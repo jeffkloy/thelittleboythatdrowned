@@ -1,4 +1,4 @@
-# "Searching" - Literary Analysis
+# "Searching"
 
 ## Theme
 

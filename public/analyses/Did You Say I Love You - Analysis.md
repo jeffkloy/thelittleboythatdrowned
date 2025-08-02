@@ -1,4 +1,4 @@
-# "Did You Say I Love You?" - Literary Analysis
+# "Did You Say I Love You?"
 
 ## Overview
 

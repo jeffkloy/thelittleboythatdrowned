@@ -1,4 +1,4 @@
-# "Spark and Calm" - Literary Analysis
+# "Spark and Calm"
 
 ## Theme
 

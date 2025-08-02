@@ -1,4 +1,4 @@
-# "Eating Starlight" - Literary Analysis
+# "Eating Starlight"
 
 ## Theme
 

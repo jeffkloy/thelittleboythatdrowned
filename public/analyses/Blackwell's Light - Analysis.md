@@ -1,4 +1,4 @@
-# Analysis of "Blackwell's Light"
+# "Blackwell's Light"
 
 ## Overview
 "Blackwell's Light" is a haunting meditation on the duality of place and meaning, exploring how a single landmark can embody both hope and despair depending on the emotional state of those who visit it. The poem uses the metaphor of a lighthouse to examine themes of mental health, suicidal ideation, and the complex ways we inherit and transform the meanings of places through our personal experiences.
