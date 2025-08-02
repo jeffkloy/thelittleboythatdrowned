@@ -925,7 +925,12 @@ header h1 {
   font-size: var(--fs-300);
 }
 .site-footer__updated {
+  font-family: var(--font-sans);
+  color: var(--color-muted);
+  text-align: center;
+  font-size: var(--fs-300);
   opacity: 0.7;
+  margin: 0;
 }
 
 /* Scrollbar styling */

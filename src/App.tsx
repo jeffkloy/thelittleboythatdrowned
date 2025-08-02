@@ -121,8 +121,12 @@ export default function App() {
       <footer className="site-footer">
         <p className="site-footer__text">
           © {new Date().getFullYear()} The Little Boy That Drowned
-          {lastUpdated && <span className="site-footer__updated"> • Last updated: {lastUpdated}</span>}
         </p>
+        {lastUpdated && (
+          <p className="site-footer__updated">
+            Last updated: {lastUpdated}
+          </p>
+        )}
       </footer>
     </div>
   );
