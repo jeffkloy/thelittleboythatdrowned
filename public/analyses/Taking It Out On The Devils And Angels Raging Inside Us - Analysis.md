@@ -32,9 +32,9 @@ This repeated question structure (appearing in both sets) is particularly reveal
 
 This question captures the point of no return in arguments fueled by addiction. The specificity of "ten seconds" shows an intimate knowledge of these explosive moments, suggesting lived experience. The parallel question for the angel—"Ten seconds into my verbal assault, do you stand there feeling superior"—reveals the resentment that can build on both sides, where sobriety itself becomes a weapon of moral superiority.
 
-### "After the fight, do you feel regret or does anger still pervade?"
+### "After the fight, do you feel regret or does anger still pervade?" / "After the fight, do you miss the numbness or does the weight of consciousness still feel like victory?"
 
-The temporal markers throughout—"when you first started," "over the years," "after the fight"—create a timeline of deterioration. This final question in the devil's section seeks to understand whether any humanity remains after the rage, whether the addiction has completely overtaken the person's emotional responses.
+The temporal markers throughout—"when you first started," "over the years," "after the fight"—create a timeline of deterioration. These parallel final questions reveal the aftermath's complexity for both partners. For the devil, the question seeks to understand whether any humanity remains after the rage, whether the addiction has completely overtaken the person's emotional responses. For the angel, the question is equally devastating—it suggests that sobriety might feel less like triumph and more like burden, that there might be moments where the sober partner envies the escape that numbness provides. The phrase "weight of consciousness" transforms what should be victory into something heavy and exhausting, acknowledging that bearing witness to destruction while maintaining clarity can be its own form of suffering.
 
 ## Language and Tone
 

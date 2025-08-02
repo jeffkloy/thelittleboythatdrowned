@@ -16,4 +16,4 @@ Six questions for the angel in their bloodstream - a curated list to help one fi
 3. What's it feel like in your head when reality stays sharp-edged and your emotions refuse to blur into the abyss?
 4. What's the second thing that pops into your head when you've started feeling everything without an anaesthetic?
 5. Ten seconds into my verbal assault, do you stand there feeling superior with your clear head while I drown in my own rage?
-6. After the silence, do you miss the numbness or does the weight of consciousness still feel like victory?
+6. After the fight, do you miss the numbness or does the weight of consciousness still feel like victory?
