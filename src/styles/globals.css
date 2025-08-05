@@ -1006,6 +1006,59 @@ header h1 {
   z-index: 1001; /* ensure buttons remain clickable */
 }
 
+/* Titular Poem Section */
+.titular-poem-section {
+  margin-bottom: var(--space-l);
+  padding-bottom: var(--space-m);
+  border-bottom: 1px solid rgba(74, 74, 74, 0.15);
+  position: relative;
+  z-index: 1001;
+}
+
+.titular-poem-heading {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-s);
+  text-align: center;
+}
+
+.titular-poem-link {
+  width: 100%;
+  padding: var(--space-xs) var(--space-s);
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition);
+  position: relative;
+  border-radius: var(--radius);
+}
+
+.titular-poem-link:hover {
+  color: var(--text-primary);
+  background: rgba(42, 42, 42, 0.2);
+}
+
+.titular-poem-link:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* Mobile styles for titular poem section */
+.mobile-nav .titular-poem-section {
+  padding: 0 var(--space-m) var(--space-m);
+  margin-bottom: var(--space-m);
+  border-bottom: 1px solid rgba(74, 74, 74, 0.15);
+}
+
 .tag-buttons {
   display: flex;
   flex-wrap: wrap;

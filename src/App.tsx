@@ -18,9 +18,24 @@ export function NavContent(props: {
   onSelect: (f: string) => void;
 }) {
   const { allTags, total, activeTags, setActiveTags, poems, onSelect } = props;
+  const titularPoem = "How The Little Boy Drowned.md";
+  
   return (
     <>
       <TagFilters allTags={allTags} total={total} onChange={setActiveTags} />
+      
+      {/* Special section for the titular poem */}
+      <div className="titular-poem-section">
+        <h3 className="titular-poem-heading">An Introduction</h3>
+        <button
+          className="titular-poem-link"
+          onClick={() => onSelect(titularPoem)}
+          aria-label="Read the titular poem: How The Little Boy Drowned"
+        >
+          How The Little Boy Drowned
+        </button>
+      </div>
+      
       <PoemList poems={poems} activeTags={activeTags} onSelect={onSelect} />
     </>
   );
