@@ -10,7 +10,7 @@
 5. Checks for orphaned analyses (analyses without corresponding poems)
 
 **When to use**: Run `/sync-poems` whenever you:
-- Add new poems to the `poems/` directory
+- Add new poems to the `public/poems/` directory
 - Want to update tags based on poem content
 - Need to generate detailed analyses for new poems
 
@@ -24,6 +24,8 @@
    - Connect the poem to others in the collection
    - Generate a professional literary analysis
    - Note: Do NOT include creation dates in analyses
+   - Note: Do NOT add "(Analysis)" or "- Analysis" to the document's heading/title
+   - Note: ONLY add "- Analysis" to the document's filename
 3. **Preservation**: Maintains any manually edited tags in existing poems.json
 4. **Summary**: Provides a detailed report of all changes made
 
