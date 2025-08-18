@@ -170,6 +170,15 @@
       ]
     },
     {
+      "filename": "On Learning.md",
+      "tags": [
+        "love",
+        "communication",
+        "identity",
+        "loss"
+      ]
+    },
+    {
       "filename": "On The Road.md",
       "tags": [
         "time"
@@ -255,7 +264,7 @@
       ]
     }
   ],
-  "count": 33,
+  "count": 34,
   "generated": false,
   "lastUpdated": "2025-08-05"
 }
