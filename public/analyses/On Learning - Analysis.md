@@ -1,51 +1,43 @@
 # "On Learning"
 
-"On Learning" explores the painful disconnect between surface-level intimacy and deeper emotional understanding in a relationship. The poem's title operates on multiple levels—referencing both the speaker's unlearned "mother tongue" and the broader failure to truly learn each other as people. This brief but powerful piece captures the moment when one realizes that shared experiences and laughter cannot compensate for a fundamental lack of genuine interest in knowing someone's authentic self.
+## Overview
 
-## Structure and Movement
+"On Learning" presents a poignant exploration of relationship incompatibility through the lens of cultural and emotional disconnect. The poem's dual structure—what draws the speaker to their partner versus what ultimately breaks them—reveals the painful gap between surface-level compatibility and deeper understanding. At its heart, this is a poem about the importance of mutual effort in love and the devastating realization when that effort flows only in one direction.
 
-The poem is organized into two mirroring stanzas, each beginning with a question that sets up a contrast between appearance and reality. The first stanza lists the positive memories and shared connections, building a seemingly strong foundation for the relationship. The second stanza then undermines this foundation with a devastating revelation about what was missing all along.
+## Structure and Form
 
-The parallel structure of "What makes me miss her?" and "What makes me break?" creates a powerful emotional progression from nostalgia to heartbreak, from remembering what was good to understanding why it wasn't enough.
+The poem employs a strategic two-part structure, each beginning with a question that frames the emotional territory to follow. The first section catalogues the positive memories with accumulating momentum, while the second reveals the underlying fractures that made the relationship unsustainable. This binary structure mirrors the speaker's own divided experience—torn between genuine affection and the recognition of fundamental incompatibility.
 
-## The Language of Love and Loss
+## Thematic Analysis
 
-The "mother tongue" becomes the poem's central metaphor, representing not just literal language but the speaker's essential identity, cultural heritage, and authentic self-expression. The lover's dismissal of this language as not sounding "nice" reveals a superficial approach to the relationship—she wanted the speaker's presence but not their depth, their company but not their complexity.
+### Surface Versus Depth
 
-The phrase "waiting for someone else to speak poetically to" is particularly cutting, suggesting that while the speaker was present and trying to share their authentic self, their partner was already looking elsewhere for the kind of romantic expression she valued. The irony is sharp: she rejected the speaker's natural poetry (their mother tongue) while seeking poetry elsewhere.
+The opening stanza presents an impressive list of shared experiences and compatibilities: conversations, laughter, inside jokes, common interests, shared cuisines, mutual love of travel and music. These elements suggest a relationship rich in shared experiences and apparent connection. However, the poem reveals these as surface-level bonds that, while meaningful, cannot sustain a relationship lacking deeper mutual investment.
 
-## Surface Versus Substance
+### The Weight of Small Rejections
 
-The first stanza catalogs the relationship's surface pleasures: conversations, laughter, inside jokes, shared interests in travel and music. These are the elements that make relationships feel good in the moment, that create the illusion of compatibility. The repetition of "our" emphasizes the apparent mutuality of these connections.
+The second stanza introduces increasingly personal rejections. The partner wanted the speaker to "stick around" but not fully integrate into their life. The request to fix their teeth—identified as "the only reminder left of my suicide attempt"—represents an attempt to erase the speaker's history and pain. The rejection of the beloved dog in their shared bed suggests an unwillingness to accept the full scope of the speaker's life and attachments.
 
-Yet the phrase "the way she always wanted me around" hints at something more possessive than loving—a desire for presence without genuine engagement. The speaker was wanted as an accessory to her life, not as a complete person with their own cultural identity and forms of expression.
+### Language as Metaphor
 
-## The Weight of Being "Just Around"
+The poem's emotional climax arrives with the revelation about language. The partner's refusal to learn the speaker's mother tongue transcends mere linguistic preference—it represents a fundamental unwillingness to engage with the speaker's cultural identity and heritage. The partner's dismissal that it "just didn't sound nice" reveals a shallow, aesthetic-based rejection of something core to the speaker's identity.
 
-The transition from "always wanted me around" to "meant to just be around" reveals the relationship's true dynamic. The speaker realizes they were valued for their availability and companionship but not for who they truly were. This reduction of a person to their mere presence is a form of emotional violence, a denial of their full humanity.
+### The Final Recognition
 
-The refusal to learn the speaker's mother tongue becomes symbolic of a larger refusal to engage with difficulty, difference, or depth in the relationship. It represents a partner who wanted love to be easy, pleasant, and accommodating to their preferences, rather than a genuine exchange between two complete individuals.
+The devastating final line—"but she was always just waiting for someone else to speak poetically to"—suggests the partner was never truly present in the relationship. This revelation recontextualizes all the positive memories from the first stanza, revealing them as placeholder experiences while the partner waited for something or someone else.
 
-## Cultural and Personal Identity
+## Literary Techniques
 
-The mother tongue represents multiple layers of identity—cultural heritage, family history, and authentic self-expression. The partner's rejection of this language is a rejection of all these aspects of the speaker's identity. Her claim that it didn't "sound nice" reveals an aesthetic superficiality that prioritizes pleasantness over meaning, comfort over connection.
+The poem employs careful pacing, building from light, positive memories to increasingly heavy revelations. The use of "But mostly" as a transitional phrase emphasizes that among all the hurts, the linguistic rejection cut deepest. The verb choice of "break" rather than "hurt" or "sadden" emphasizes complete fracture rather than mere damage.
 
-This rejection is particularly painful because language is how we share our deepest selves. To refuse to learn someone's language—literal or metaphorical—is to refuse to learn them.
+## Contemporary Relevance
 
-## Waiting for Poetry Elsewhere
+"On Learning" speaks to modern challenges in cross-cultural relationships and the importance of genuine cultural exchange versus superficial multiculturalism. In an increasingly globalized world, the poem asks: what does it mean to truly embrace another person's background rather than simply tolerating it? The poem suggests that love requires active learning—not just of preferences and habits, but of the deeper currents that shape identity.
 
-The final line delivers the poem's most devastating insight: the partner wasn't just uninterested in the speaker's language but was actively waiting for someone else to provide the poetry she sought. This reveals a fundamental misdirection of romantic energy—she was physically present but emotionally elsewhere, using the speaker as a placeholder while waiting for her ideal romance.
+## Connection to Collection
 
-The irony that she sought poetry while rejecting the speaker's poetic mother tongue suggests she had a narrow, perhaps clichéd idea of what romance and poetry should sound like, unable to recognize the authentic poetry of genuine cultural and personal expression.
-
-## Connection to the Collection
-
-"On Learning" resonates with other poems in the collection that explore failed communication and the pain of being unseen in relationships. Like "Attention," it examines how we can be physically present with someone yet emotionally invisible. The theme of language and communication connects to "Conversations" and "Delivered (or) Read," while the sense of being valued for the wrong reasons echoes throughout poems like "Lovable" and "Taking It Out On The Devils And Angels Raging Inside Us."
-
-The poem's exploration of cultural identity and belonging adds a unique dimension to the collection's treatment of loneliness—the specific isolation of having one's cultural self rejected by an intimate partner.
+This poem resonates with other pieces in the collection that explore themes of incomplete connection and one-sided emotional investment. The emphasis on communication (or its failure) links it to poems like "Delivered (or) Read" and "Conversations," while the exploration of identity connects it to works examining self-worth and belonging.
 
 ## Conclusion
 
-"On Learning" is a poignant meditation on the difference between being wanted and being known, between surface compatibility and deep understanding. Through the metaphor of the unlearned mother tongue, the poem exposes how relationships can founder not on dramatic conflicts but on the quiet violence of incuriosity, the subtle rejection of those parts of ourselves that require effort to understand.
-
-The poem suggests that real love requires a willingness to learn—not just the easy, pleasant parts of someone but also the challenging, unfamiliar, perhaps difficult-to-understand aspects that make them who they are. Without this willingness, we are all just waiting for someone else to speak poetically to, missing the poetry that's right in front of us, spoken in a tongue we never bothered to learn.
+"On Learning" ultimately presents love as an active verb requiring continuous effort and genuine curiosity about one's partner. The title itself becomes ironic—while the speaker was willing to learn and adapt, their partner remained stubbornly monolingual, both literally and emotionally. The poem suggests that relationships fail not from lack of common ground, but from unwillingness to explore the terrain that feels foreign. In refusing to learn the speaker's language, the partner refused to learn the speaker themselves, choosing instead to wait for poetry in a tongue they already understood.
