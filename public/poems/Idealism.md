@@ -35,5 +35,10 @@ But I might just live a life as the lonely broken soul
 I'm so used to it from everyone else in my past
 that I might claim it as my state of permanence
 
-Even though we're still friends
-I want to write happy poems again
+I'm glad we're still friends
+I will keep bringing you up when you're down
+I will keep helping you out with things in life
+I will keep going to lengths to keep you around
+
+And we will still make memories
+But I want to write happy poems again
