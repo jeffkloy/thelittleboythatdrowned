@@ -148,6 +148,16 @@
       ]
     },
     {
+      "filename": "Idealism.md",
+      "tags": [
+        "love",
+        "hope",
+        "loss",
+        "loneliness",
+        "identity"
+      ]
+    },
+    {
       "filename": "Lovable.md",
       "tags": [
         "identity",
@@ -264,7 +274,7 @@
       ]
     }
   ],
-  "count": 34,
+  "count": 35,
   "generated": false,
-  "lastUpdated": "2025-08-18"
+  "lastUpdated": "2025-09-10"
 }

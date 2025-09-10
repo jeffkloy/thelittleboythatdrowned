@@ -1,0 +1,21 @@
+# "Idealism"
+
+"Idealism" captures the painful contradiction between romantic hope and self-protective realism in the aftermath of a relationship. The poem explores the tension between wanting to believe in a future together while simultaneously recognizing the patterns and obstacles that make such dreams seem impossible.
+
+The opening lines establish the central conflict through the oxymoronic phrase "difficult wonderful thoughts," immediately signaling the speaker's emotional ambivalence. The mind's tentative question—"What if we worked out?"—reveals both the persistence of hope and its fragility, framed as a hypothetical rather than a declaration.
+
+The speaker's self-awareness emerges through the fear of being "just a hopeless romantic," with the word "just" diminishing their own emotional investment. The characterization as a "lonely broken soul" suggests both self-deprecation and a pattern of failed connections. The verb "idealises" acknowledges the gap between fantasy and reality, while "never be theirs again" confirms the relationship's ended state.
+
+The middle stanza shifts to concrete grievances, using short, declarative statements that contrast with the more flowing lines elsewhere. "Because we fight / And we hurt" presents relationship conflict as simple fact, while the geographic distance of the other person's dreams becomes both literal and metaphorical separation. The progression from "mostly think is far-fetched" to "really think is stupid" reveals the speaker's struggle between supportive rationality and honest emotion.
+
+Despite this frustration, the speaker maintains ethical boundaries: "I would never stop you from your dreams." This restraint reflects a mature understanding that love requires allowing the other person their autonomy, even when it conflicts with one's own desires. The logic that preventing someone's dreams would mean "I never truly cared" demonstrates the speaker's commitment to genuine love over possession.
+
+The poem's emotional center arrives in the extended vision sequence beginning with "But in my difficult wonderful thoughts." The anaphoric repetition of "I saw" creates a cinematic montage of an imagined future, progressing from professional success ("shaking hands with important people") through romantic milestones ("walking down the aisle") to family life ("our kids playing in the yard"). Each image builds toward the ultimate goals: "you feeling fulfilled" and "us living happy." The syntax here is crucial—the speaker prioritizes the other person's fulfillment before their mutual happiness.
+
+The return to reality is marked by the phrase "I might just live a life as the lonely broken soul," echoing the earlier self-characterization but now as a potential permanent state. The speaker's resignation stems from pattern recognition: "I'm so used to it from everyone else in my past." This suggests a history of abandonment or failed connections that makes the current situation feel predetermined.
+
+The final couplet provides a bittersweet resolution. "Even though we're still friends" acknowledges what remains of the relationship while implying it's insufficient. The closing desire—"I want to write happy poems again"—transforms the poem into a meta-commentary on how emotional states shape artistic expression. The word "again" implies a time before this pain when happiness was possible, suggesting hope for future healing even as the present remains marked by loss.
+
+The poem's structure mirrors its emotional movement, beginning with tentative questioning, moving through self-doubt and conflict, ascending to imaginative heights, then descending back to resigned acceptance. Throughout, the speaker maintains remarkable emotional honesty, acknowledging both their romantic idealism and its potential futility without losing sight of what genuine care requires.
+
+Within the collection, "Idealism" resonates with other poems exploring the aftermath of love and the difficulty of moving forward. Like "On Learning," it examines how we carry forward the lessons and wounds of past relationships. The tension between hope and resignation echoes throughout many of the collection's love poems, while the self-awareness about patterns of loneliness connects to broader themes of isolation and connection that run through the work.
