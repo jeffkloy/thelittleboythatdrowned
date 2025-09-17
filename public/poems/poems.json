@@ -272,9 +272,18 @@
         "mental-health",
         "time"
       ]
+    },
+    {
+      "filename": "May Things Go Well For You.md",
+      "tags": [
+        "love",
+        "loss",
+        "communication",
+        "hope"
+      ]
     }
   ],
-  "count": 35,
+  "count": 36,
   "generated": false,
-  "lastUpdated": "2025-09-10"
+  "lastUpdated": "2025-09-17"
 }
