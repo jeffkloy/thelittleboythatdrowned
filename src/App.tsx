@@ -42,7 +42,7 @@ export function NavContent(props: {
 }
 
 export default function App() {
-  const { poems, tags, loading, error, lastUpdated } = usePoems();
+  const { poems, tags, loading, error, lastUpdated, latestPoem } = usePoems();
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -135,7 +135,12 @@ export default function App() {
               <p className="error">No poems found. Please ensure poems/poems.json exists.</p>
             </article>
           ) : (
-            <PoemView filename={selectedFilename} initialView={viewMode} />
+            <PoemView
+              filename={selectedFilename}
+              initialView={viewMode}
+              latestPoem={latestPoem}
+              onSelect={handleSelect}
+            />
           )}
         </main>
       </div>

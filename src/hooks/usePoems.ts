@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { validatePoemMetadata, type PoemMetadata } from '../lib/validation';
 
 export type PoemMeta = { filename: string; tags: string[] };
-export type PoemsJson = { poems: PoemMeta[]; lastUpdated?: string };
+export type PoemsJson = { poems: PoemMeta[]; lastUpdated?: string; latestPoem?: string };
 
 export function usePoems() {
   const [data, setData] = useState<PoemsJson | null>(null);
@@ -16,7 +16,10 @@ export function usePoems() {
       try {
         const base = new URL(import.meta.env.BASE_URL, window.location.origin);
         const poemsUrl = new URL('poems/poems.json', base).toString();
-        const res = await fetch(poemsUrl, { credentials: 'same-origin' });
+        const res = await fetch(poemsUrl, {
+          credentials: 'same-origin',
+          cache: 'no-cache'
+        });
         if (!res.ok) throw new Error(`Failed to fetch poems.json (${res.status})`);
         const json = await res.json();
         
@@ -29,12 +32,13 @@ export function usePoems() {
           throw new Error('Invalid poems.json format: invalid poem metadata');
         }
         
-        if (alive) { 
-          setData({ 
+        if (alive) {
+          setData({
             poems: json.poems as PoemMetadata[],
-            lastUpdated: json.lastUpdated 
-          }); 
-          setError(null); 
+            lastUpdated: json.lastUpdated,
+            latestPoem: json.latestPoem
+          });
+          setError(null);
         }
       } catch (e) {
         if (alive) setError((e instanceof Error ? e.message : String(e)) || 'Unknown error fetching poems.json');
@@ -66,6 +70,7 @@ export function usePoems() {
   }, [poems]);
 
   const lastUpdated = useMemo(() => data?.lastUpdated || null, [data]);
+  const latestPoem = useMemo(() => data?.latestPoem || null, [data]);
 
-  return { poems, tags, loading, error, lastUpdated };
+  return { poems, tags, loading, error, lastUpdated, latestPoem };
 }

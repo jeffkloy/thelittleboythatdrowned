@@ -281,9 +281,20 @@
         "communication",
         "hope"
       ]
+    },
+    {
+      "filename": "All The Places You Will Go.md",
+      "tags": [
+        "growth",
+        "identity",
+        "memory",
+        "place",
+        "time"
+      ]
     }
   ],
-  "count": 36,
+  "count": 37,
   "generated": false,
-  "lastUpdated": "2025-09-17"
+  "lastUpdated": "2025-10-08",
+  "latestPoem": "All The Places You Will Go.md"
 }

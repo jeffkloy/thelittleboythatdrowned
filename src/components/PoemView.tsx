@@ -3,12 +3,14 @@ import { useSearchParams } from 'react-router-dom';
 import { usePoem } from '../hooks/usePoem';
 import { cleanPoemTitle } from '../lib/urls';
 
-type Props = { 
+type Props = {
   filename: string | null;
   initialView?: 'poem' | 'analysis';
+  latestPoem?: string | null;
+  onSelect: (filename: string) => void;
 };
 
-export default function PoemView({ filename, initialView = 'poem' }: Props) {
+export default function PoemView({ filename, initialView = 'poem', latestPoem, onSelect }: Props) {
   const { poem, analysis, loading, error } = usePoem(filename);
   const [view, setView] = useState<'poem' | 'analysis'>(initialView);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -76,8 +78,24 @@ export default function PoemView({ filename, initialView = 'poem' }: Props) {
         </>
       );
     }
-    return <p className="welcome-message">Select a poem from the list to begin your journey</p>;
-  }, [loading, error, poem, analysis, view, filename, handleViewChange]);
+    return (
+      <>
+        <p className="welcome-message">Select a poem from the list to begin your journey</p>
+        {latestPoem && (
+          <p className="latest-poem-hint">
+            Or start with the latest:{' '}
+            <button
+              className="latest-poem-link"
+              onClick={() => onSelect(latestPoem)}
+              aria-label={`Read latest poem: ${latestPoem.replace('.md', '')}`}
+            >
+              {latestPoem.replace('.md', '')}
+            </button>
+          </p>
+        )}
+      </>
+    );
+  }, [loading, error, poem, analysis, view, filename, handleViewChange, latestPoem, onSelect]);
 
   return (
     <article id="poem-display" className="poem-display" aria-live="polite">
