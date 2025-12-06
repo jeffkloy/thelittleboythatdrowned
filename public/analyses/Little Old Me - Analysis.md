@@ -58,9 +58,10 @@ The poem concludes with disarming simplicity:
 
 > In the end,
 > I'm just little old me
-> What else can I ask for? What else can I do?
+> What else can I ask for?
+> What else can I do?
 
-The rhetorical questions aren't expressions of limitation but of sufficiency. The phrase "little old me" reclaims smallness as intimacy rather than inadequacy. The deliberate lack of spacing between the final questions ("What else can I ask for?What else can I do?") creates urgency, as if these questions tumble out together—both asking and answering in the same breath.
+The rhetorical questions aren't expressions of limitation but of sufficiency. The phrase "little old me" reclaims smallness as intimacy rather than inadequacy. By placing each question on its own line, the poem slows us down, inviting genuine contemplation rather than rushing toward closure. The questions hang in the air separately—the first about desire, the second about action—and together they suggest that the speaker has found peace in both.
 
 ## Literary Devices
 
