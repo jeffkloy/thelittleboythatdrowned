@@ -158,6 +158,16 @@
       ]
     },
     {
+      "filename": "Little Old Me.md",
+      "tags": [
+        "growth",
+        "hope",
+        "identity",
+        "place",
+        "time"
+      ]
+    },
+    {
       "filename": "Lovable.md",
       "tags": [
         "identity",
@@ -293,8 +303,8 @@
       ]
     }
   ],
-  "count": 37,
+  "count": 38,
   "generated": false,
-  "lastUpdated": "2025-10-08",
-  "latestPoem": "All The Places You Will Go.md"
+  "lastUpdated": "2025-12-06",
+  "latestPoem": "Little Old Me.md"
 }
