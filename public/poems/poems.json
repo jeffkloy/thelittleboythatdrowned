@@ -301,10 +301,20 @@
         "place",
         "time"
       ]
+    },
+    {
+      "filename": "Nobody Knows The Real Me.md",
+      "tags": [
+        "communication",
+        "identity",
+        "loneliness",
+        "love",
+        "mental-health"
+      ]
     }
   ],
-  "count": 38,
+  "count": 39,
   "generated": false,
-  "lastUpdated": "2025-12-06",
-  "latestPoem": "Little Old Me.md"
+  "lastUpdated": "2025-12-28",
+  "latestPoem": "Nobody Knows The Real Me.md"
 }
