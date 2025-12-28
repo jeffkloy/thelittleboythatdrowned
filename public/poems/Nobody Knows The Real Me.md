@@ -12,7 +12,7 @@ Nothing more than afraid of saying something wrong,
 something despondent
 
 "And you've travelled to so many places"
-Like I said, Nobody knows the real me
+Like I said, nobody knows the real me
 My loneliness knows every road
 I'm fearful of reaching a dead end
 One day, there'd be no turning back
