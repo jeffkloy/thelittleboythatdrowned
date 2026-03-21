@@ -311,10 +311,21 @@
         "love",
         "mental-health"
       ]
+    },
+    {
+      "filename": "For All Of My Best Friends.md",
+      "tags": [
+        "addiction",
+        "communication",
+        "hope",
+        "loneliness",
+        "love",
+        "place"
+      ]
     }
   ],
-  "count": 39,
+  "count": 40,
   "generated": false,
-  "lastUpdated": "2025-12-28",
-  "latestPoem": "Nobody Knows The Real Me.md"
+  "lastUpdated": "2026-03-21",
+  "latestPoem": "For All Of My Best Friends.md"
 }
