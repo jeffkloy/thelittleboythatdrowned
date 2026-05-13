@@ -1,42 +1,61 @@
-import React, { useMemo, useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import Particles from './components/Particles';
 import Header from './components/Header';
+import Hero from './components/Hero';
+import Marquee from './components/Marquee';
 import TagFilters from './components/TagFilters';
 import PoemList from './components/PoemList';
 import PoemView from './components/PoemView';
 import { usePoems } from './hooks/usePoems';
 import { addMdExtension, cleanPoemTitle } from './lib/urls';
 
-/** Shared nav content for both desktop sidebar and mobile drawer */
-export function NavContent(props: {
+type NavContentProps = {
   allTags: { tag: string; count: number }[];
   total: number;
   activeTags: Set<string>;
   setActiveTags: (s: Set<string>) => void;
   poems: { filename: string; tags: string[] }[];
+  activeFilename: string | null;
   onSelect: (f: string) => void;
-}) {
-  const { allTags, total, activeTags, setActiveTags, poems, onSelect } = props;
-  const titularPoem = "How The Little Boy Drowned.md";
-  
+};
+
+const TITULAR_FILENAME = 'How The Little Boy Drowned.md';
+
+/** Shared nav content for both desktop sidebar and mobile drawer. */
+export function NavContent({
+  allTags,
+  total,
+  activeTags,
+  setActiveTags,
+  poems,
+  activeFilename,
+  onSelect,
+}: NavContentProps) {
   return (
     <>
       <TagFilters allTags={allTags} total={total} onChange={setActiveTags} />
-      
-      {/* Special section for the titular poem */}
-      <div className="titular-poem-section">
-        <h3 className="titular-poem-heading">An Introduction</h3>
+
+      <div className="intro" id="intro">
+        <p className="label label--bare">
+          <span className="num">✦</span>An introduction
+        </p>
         <button
-          className="titular-poem-link"
-          onClick={() => onSelect(titularPoem)}
+          type="button"
+          className="intro-link"
+          onClick={() => onSelect(TITULAR_FILENAME)}
           aria-label="Read the titular poem: How The Little Boy Drowned"
         >
           How The Little Boy Drowned
         </button>
+        <p className="desc">Start here — the origin story of the collection.</p>
       </div>
-      
-      <PoemList poems={poems} activeTags={activeTags} onSelect={onSelect} />
+
+      <PoemList
+        poems={poems}
+        activeTags={activeTags}
+        activeFilename={activeFilename}
+        onSelect={onSelect}
+      />
     </>
   );
 }
@@ -47,25 +66,17 @@ export default function App() {
   const [activeTags, setActiveTags] = useState<Set<string>>(new Set(['all']));
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Get selected poem from URL
   const poemParam = searchParams.get('poem');
   const analysisParam = searchParams.get('analysis');
-  
-  // Determine which parameter to use (analysis takes precedence if both are present)
   const activeParam = analysisParam || poemParam;
   const viewMode = analysisParam ? 'analysis' : 'poem';
-  
-  // Convert URL param to filename with .md extension
   const selectedFilename = activeParam ? addMdExtension(activeParam) : null;
-  
-  // Initialize selected poem from URL on mount
+
   useEffect(() => {
     if (activeParam && poems.length > 0) {
-      // Validate that the poem exists (add .md extension for comparison)
       const filenameWithMd = addMdExtension(activeParam);
-      const poemExists = poems.some(p => p.filename === filenameWithMd);
+      const poemExists = poems.some((p) => p.filename === filenameWithMd);
       if (!poemExists) {
-        // Remove invalid poem/analysis from URL
         searchParams.delete('poem');
         searchParams.delete('analysis');
         setSearchParams(searchParams);
@@ -73,14 +84,11 @@ export default function App() {
     }
   }, [activeParam, poems, searchParams, setSearchParams]);
 
-  // Prefetch next poem (safe enhancement) after selection
   function handleSelect(filename: string) {
-    // Update URL with selected poem (remove .md extension)
     const cleanName = cleanPoemTitle(filename);
     setSearchParams({ poem: cleanName });
-    // Close menu on mobile when poem is selected
     setIsMenuOpen(false);
-    const idx = poems.findIndex((p: { filename: string; tags: string[] }) => p.filename === filename);
+    const idx = poems.findIndex((p) => p.filename === filename);
     const next = idx >= 0 && idx + 1 < poems.length ? poems[idx + 1].filename : null;
     if (next) {
       const base = new URL(import.meta.env.BASE_URL, window.location.origin);
@@ -91,69 +99,73 @@ export default function App() {
 
   const total = useMemo(() => poems.length, [poems]);
 
-  // Mobile navigation content for Header
-  const mobileNavContent = (
+  const selectedMeta = useMemo(() => {
+    if (!selectedFilename) return null;
+    const idx = poems.findIndex((p) => p.filename === selectedFilename);
+    if (idx < 0) return null;
+    return { position: idx + 1, tags: poems[idx].tags || [] };
+  }, [poems, selectedFilename]);
+
+  const navContent = (
     <NavContent
       allTags={tags}
       total={total}
       activeTags={activeTags}
       setActiveTags={setActiveTags}
       poems={poems}
+      activeFilename={selectedFilename}
       onSelect={handleSelect}
     />
   );
 
   return (
     <div className="layout">
-      <Header 
-        navContent={mobileNavContent}
+      <Header
+        navContent={navContent}
         isMenuOpen={isMenuOpen}
         onMenuToggle={setIsMenuOpen}
       />
-      <Particles />
 
-      {/* Single column on mobile, two columns on desktop */}
-      <div className="layout-columns">
-        <aside id="site-nav" className="site-nav" role="navigation" aria-label="Primary">
-          <NavContent
-            allTags={tags}
-            total={total}
-            activeTags={activeTags}
-            setActiveTags={setActiveTags}
-            poems={poems}
-            onSelect={handleSelect}
-          />
+      <Hero total={total} themeCount={tags.length} lastUpdated={lastUpdated} />
+      <Marquee />
+
+      <main className="shell">
+        <aside
+          id="site-nav"
+          className="sidebar"
+          role="navigation"
+          aria-label="Primary"
+        >
+          {navContent}
         </aside>
 
-        <main id="main" className="poem-content" role="main">
+        <section className="reader" id="reader" role="main">
           {loading ? (
-            <article className="poem-display">
-              <p className="loading">Loading poems...</p>
-            </article>
+            <p className="loading">Loading poems</p>
           ) : error ? (
-            <article className="poem-display">
-              <p className="error">No poems found. Please ensure poems/poems.json exists.</p>
-            </article>
+            <p className="error">No poems found. Please ensure poems/poems.json exists.</p>
           ) : (
             <PoemView
               filename={selectedFilename}
               initialView={viewMode}
               latestPoem={latestPoem}
+              position={selectedMeta?.position ?? null}
+              total={total}
+              tags={selectedMeta?.tags}
               onSelect={handleSelect}
             />
           )}
-        </main>
-      </div>
+        </section>
+      </main>
 
-      <footer className="site-footer">
-        <p className="site-footer__text">
-          © {new Date().getFullYear()} The Little Boy That Drowned
-        </p>
-        {lastUpdated && (
-          <p className="site-footer__updated">
-            Last updated: {lastUpdated}
-          </p>
-        )}
+      <footer className="site-footer" id="about">
+        <div className="foot-grid">
+          <div className="left">© {new Date().getFullYear()}</div>
+          <div className="center">The Little Boy That Drowned</div>
+          <div className="right">
+            {lastUpdated ? `Last edit · ${lastUpdated}` : '@jeffkloy'}
+          </div>
+        </div>
       </footer>
     </div>
   );

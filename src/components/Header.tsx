@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 
 type Props = {
   navContent?: React.ReactNode;
@@ -8,13 +7,13 @@ type Props = {
 };
 
 /**
- * Header with mobile hamburger menu positioned above the title
+ * Floating mobile menu button + slide-in drawer.
+ * The visual site identity lives in <Hero/>, not here.
  */
 export default function Header({ navContent, isMenuOpen = false, onMenuToggle }: Props) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Handle ESC key to close menu
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape' && isMenuOpen) {
@@ -22,13 +21,10 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
         menuButtonRef.current?.focus();
       }
     }
-
     if (isMenuOpen) {
       document.addEventListener('keydown', handleKeyDown);
-      // Lock body scroll when menu is open
       document.body.style.overflow = 'hidden';
     }
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = '';
@@ -38,7 +34,6 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
   function toggleMenu() {
     onMenuToggle?.(!isMenuOpen);
   }
-
   function closeMenu() {
     onMenuToggle?.(false);
     menuButtonRef.current?.focus();
@@ -46,7 +41,6 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
 
   return (
     <>
-      {/* Floating mobile menu button */}
       <button
         ref={menuButtonRef}
         className="menu-toggle menu-toggle--floating"
@@ -54,48 +48,34 @@ export default function Header({ navContent, isMenuOpen = false, onMenuToggle }:
         aria-label="Toggle navigation menu"
         aria-expanded={isMenuOpen}
         aria-controls="mobile-nav"
+        type="button"
       >
         <span className="menu-toggle__line"></span>
         <span className="menu-toggle__line"></span>
         <span className="menu-toggle__line"></span>
       </button>
 
-      <header className="site-header" role="banner">
-        <div className="site-header__inner">
-          <div className="brand">
-            <Link to="/" className="brand__link">
-              <h1 className="brand__title">The Little Boy That Drowned</h1>
-            </Link>
-            <p className="brand__subtitle">Intimate verses on love, loss, addiction, belonging, and the quiet spaces in between: a collection of poems by @jeffkloy</p>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile navigation drawer */}
       <div className={`mobile-nav-wrapper ${isMenuOpen ? 'is-open' : ''}`}>
-        {/* Backdrop */}
-        <div 
-          className="mobile-nav-backdrop" 
+        <div
+          className="mobile-nav-backdrop"
           onClick={closeMenu}
           aria-hidden="true"
         />
-        
-        {/* Navigation drawer */}
-        <nav 
+        <nav
           ref={menuRef}
-          id="mobile-nav" 
+          id="mobile-nav"
           className="mobile-nav"
           role="navigation"
           aria-label="Mobile navigation"
         >
           <button
+            type="button"
             className="mobile-nav__close"
             onClick={closeMenu}
             aria-label="Close navigation menu"
           >
             ×
           </button>
-          
           {navContent}
         </nav>
       </div>

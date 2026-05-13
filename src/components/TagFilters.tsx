@@ -15,8 +15,8 @@ export default function TagFilters({ allTags, total, onChange }: Props) {
 
   const buttons = useMemo(
     () => [
-      { tag: 'all', count: total, active: active.has('all') },
-      ...allTags.map((t) => ({ tag: t.tag, count: t.count, active: active.has(t.tag) })),
+      { tag: 'all', label: 'All', count: total, active: active.has('all') },
+      ...allTags.map((t) => ({ tag: t.tag, label: t.tag, count: t.count, active: active.has(t.tag) })),
     ],
     [allTags, total, active]
   );
@@ -34,18 +34,19 @@ export default function TagFilters({ allTags, total, onChange }: Props) {
   }
 
   return (
-    <div className="tag-filters" role="group" aria-label="Filter poems by tag">
-      <h2 className="site-nav__heading">Filter by Theme</h2>
-      <div className="tag-buttons">
+    <>
+      <p className="label" id="themes">
+        <span className="num">01</span>Filter by theme
+      </p>
+      <div className="chips" role="group" aria-label="Filter poems by theme">
         {buttons.map((b) => (
           <button
             key={b.tag}
-            className={'tag-button' + (b.active ? ' active' : '')}
-            data-tag={b.tag}
+            type="button"
+            className="chip"
+            data-theme={b.tag}
             aria-pressed={b.active}
-            onClick={() => {
-              toggle(b.tag);
-            }}
+            onClick={() => toggle(b.tag)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -53,10 +54,10 @@ export default function TagFilters({ allTags, total, onChange }: Props) {
               }
             }}
           >
-            {b.tag === 'all' ? `All (${b.count})` : `${b.tag} (${b.count})`}
+            {b.label} <span className="count">{b.count}</span>
           </button>
         ))}
       </div>
-    </div>
+    </>
   );
 }
