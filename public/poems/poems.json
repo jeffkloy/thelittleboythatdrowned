@@ -354,10 +354,20 @@
         "mental-health",
         "time"
       ]
+    },
+    {
+      "filename": "Inabilities.md",
+      "tags": [
+        "addiction",
+        "communication",
+        "identity",
+        "love",
+        "mental-health"
+      ]
     }
   ],
-  "count": 43,
+  "count": 44,
   "generated": false,
-  "lastUpdated": "2026-07-26",
-  "latestPoem": "Better Off Apart.md"
+  "lastUpdated": "2026-08-05",
+  "latestPoem": "Inabilities.md"
 }
