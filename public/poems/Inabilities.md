@@ -28,7 +28,7 @@ The mornings I woke up surprised to still be alive
 What if she hates me?
 Or worse, what if she falls for me?
 What if it's the performance she falls for?
-The man I built on the sidewalk
-While the real me waits outside
+The man I built on the sidewalk minutes before
+While the real me waits outside in the cold
 High, stimming, unbearable
 Out there still practicing how to say hello
