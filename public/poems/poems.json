@@ -364,10 +364,20 @@
         "love",
         "mental-health"
       ]
+    },
+    {
+      "filename": "Wanderlusters.md",
+      "tags": [
+        "communication",
+        "growth",
+        "hope",
+        "love",
+        "place"
+      ]
     }
   ],
-  "count": 44,
+  "count": 45,
   "generated": false,
-  "lastUpdated": "2026-08-05",
-  "latestPoem": "Inabilities.md"
+  "lastUpdated": "2026-08-07",
+  "latestPoem": "Wanderlusters.md"
 }
