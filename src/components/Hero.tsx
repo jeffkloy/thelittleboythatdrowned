@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 type Props = {
   total: number;
@@ -20,7 +21,9 @@ export default function Hero({ total, themeCount, lastUpdated }: Props) {
           <span className="tag">— chapters finished</span>
         </div>
         <h1>
-          The Little Boy<br />That <span className="drowned">Drowned</span>
+          <Link to="/" className="title-link">
+            The Little Boy<br />That <span className="drowned">Drowned</span>
+          </Link>
         </h1>
         <div className="hero-sub">
           <p className="lede">

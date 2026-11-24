@@ -1,7 +1,7 @@
 #  "I Want To Be In Your Plans"
 
 Even though we're still so close
-I fele like I've lost you long ago
+I feel like I've lost you long ago
 We talk too much that you're my daily dose
 But your touch now, I feel like I will no longer know
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Marquee from './components/Marquee';
@@ -159,7 +159,11 @@ export default function App() {
       <footer className="site-footer" id="about">
         <div className="foot-grid">
           <div className="left">© {new Date().getFullYear()}</div>
-          <div className="center">The Little Boy That Drowned</div>
+          <div className="center">
+            <Link to="/" className="title-link">
+              The Little Boy That Drowned
+            </Link>
+          </div>
           <div className="right">
             {lastUpdated ? `Completed · ${lastUpdated}` : '@jeffkloy'}
           </div>
