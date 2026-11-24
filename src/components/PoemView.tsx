@@ -4,8 +4,10 @@ import { usePoem } from '../hooks/usePoem';
 import { cleanPoemTitle, TITULAR_FILENAME } from '../lib/urls';
 
 const TIMELINE = [
-  { year: '2007', text: 'The first lines, carried for years without being written down.' },
-  { year: '2009', text: 'The first unrequited love begins.' },
+  {
+    year: '2009',
+    text: 'The first unrequited love begins, and the first lines are carried for years without being written down.',
+  },
   { year: '2020', text: 'The pandemic. The poems are finally written.' },
   { year: '2022', text: 'The first love ends.' },
   { year: '2023', text: 'A move across the country, from California to New York.' },
@@ -73,21 +75,21 @@ export default function PoemView({
             <span className="num">✦</span>Prologue
           </p>
           <p>
-            These poems began in 2020, in the long hush of the pandemic, when the world went quiet
-            enough for old things to surface. Some had been waiting since 2007: lines carried for
-            years and never set down until there was finally room to write them.
+            These poems began in 2020 (Chapter I), in the long hush of the pandemic, when the world
+            went quiet enough for old things to surface. Some had been waiting since 2009: lines
+            carried for years and never set down until there was finally room to write them.
           </p>
           <p>
-            This is the story of my autism and my Borderline Personality Disorder, and of how,
+            This is the story of my Autism and my Borderline Personality Disorder, and of how,
             together, they pulled me under, into major depression and then into addiction and a
             string of suicide attempts, while I lived through my first unrequited love. It lasted
             from 2009 until 2022, and in 2023, I moved across the country, from California to New
-            York in search of new beginnings.
+            York - in search of new beginnings.
           </p>
           <p>
-            Then the water rose again. The newer poems (the lighthouse, a partner's drinking, the
-            futures planned, the fear of being abandoned, etc.) belong to a second love, unrequited
-            or simply mistaken for cherishment, that lasted a year and a half, from 2025 into 2026.
+            Then the water rose again. The newer poems (Chapter II) belong to a second love,
+            unrequited or simply mistaken for cherishment, that lasted a year and a half, from 2025
+            into 2026.
           </p>
           <p className="prologue-coda">
             This is a story about a boy that almost fatally drowned. He went under more than once,
