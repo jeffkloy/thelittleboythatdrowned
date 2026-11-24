@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { validatePoemMetadata, type PoemMetadata } from '../lib/validation';
 
-export type PoemMeta = { filename: string; tags: string[] };
+export type PoemMeta = { filename: string; tags: string[]; chapter?: number };
 export type PoemsJson = { poems: PoemMeta[]; lastUpdated?: string; latestPoem?: string };
 
 export function usePoems() {
@@ -52,8 +52,10 @@ export function usePoems() {
 
   const poems = useMemo(() => {
     if (!data?.poems) return [];
-    // Sort poems alphabetically by filename (case-insensitive)
+    // Chapter I before Chapter II, then alphabetically by filename (case-insensitive)
     return [...data.poems].sort((a, b) => {
+      const chapterDiff = (a.chapter === 2 ? 2 : 1) - (b.chapter === 2 ? 2 : 1);
+      if (chapterDiff) return chapterDiff;
       const nameA = a.filename.replace('.md', '').toLowerCase();
       const nameB = b.filename.replace('.md', '').toLowerCase();
       return nameA.localeCompare(nameB);

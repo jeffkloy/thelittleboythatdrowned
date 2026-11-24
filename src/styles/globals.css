@@ -633,6 +633,93 @@ a:focus-visible,
   color: var(--ink);
 }
 
+.prologue {
+  max-width: 640px;
+  margin: 0 0 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--rule);
+}
+.prologue p:not(.label) {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 1.6vw, 20px);
+  line-height: 1.65;
+  color: var(--ink-2);
+  margin: 0 0 16px;
+}
+.prologue .prologue-coda {
+  font-style: italic;
+  color: var(--tang);
+  margin: 24px 0 0;
+}
+
+.content-note {
+  max-width: 640px;
+  margin: 0 0 40px;
+  padding: 20px 24px;
+  background: var(--paper-2);
+  border-left: 3px solid var(--tang);
+  border-radius: 0 4px 4px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.content-note p { margin: 0 0 10px; }
+.content-note ul { margin: 0; padding-left: 18px; }
+.content-note li { margin: 4px 0; }
+.content-note a { color: var(--tang); }
+
+.timeline { max-width: 640px; margin: 0 0 40px; }
+.timeline ol { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--rule); }
+.timeline li {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  padding: 8px 0 8px 18px;
+  position: relative;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 16px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--tang);
+}
+.timeline .year { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--tang); }
+.timeline .event { font-family: var(--font-serif); font-size: 17px; line-height: 1.45; color: var(--ink-2); }
+
+.chapter + .chapter { margin-top: 20px; }
+.chapter-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+.chapter-label .years {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-left: 6px;
+}
+
+.foot-crisis {
+  max-width: 1480px;
+  margin: 24px auto 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.foot-crisis a { color: var(--tang); }
+
 .welcome-message {
   font-family: var(--font-serif);
   font-style: italic;

@@ -17,7 +17,7 @@ export default function Hero({ total, themeCount, lastUpdated }: Props) {
           <span className="by">
             A collection by <strong>@jeffkloy</strong>
           </span>
-          <span className="tag">— ongoing</span>
+          <span className="tag">— chapters finished</span>
         </div>
         <h1>
           The Little Boy<br />That <span className="drowned">Drowned</span>
@@ -29,7 +29,7 @@ export default function Hero({ total, themeCount, lastUpdated }: Props) {
           <div className="meta">
             {lastUpdated && (
               <div>
-                Updated <strong>{lastUpdated}</strong>
+                Completed <strong>{lastUpdated}</strong>
               </div>
             )}
             <div style={{ marginTop: 6 }}>

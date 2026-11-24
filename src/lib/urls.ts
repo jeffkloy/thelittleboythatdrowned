@@ -1,5 +1,7 @@
 // URL utility functions
 
+export const TITULAR_FILENAME = 'How The Little Boy Drowned.md';
+
 export function getPoemUrl(filename: string): string {
   // Remove .md extension for cleaner URLs
   const cleanName = filename.replace('.md', '');

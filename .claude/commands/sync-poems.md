@@ -26,7 +26,7 @@
    - Note: Do NOT include creation dates in analyses
    - Note: Do NOT add "(Analysis)" or "- Analysis" to the document's heading/title
    - Note: ONLY add "- Analysis" to the document's filename
-3. **Preservation**: Maintains any manually edited tags in existing poems.json
+3. **Preservation**: Maintains any manually edited tags and `chapter` values in existing poems.json. Each poem has `"chapter": 1` (2009–2022, first unrequited love) or `"chapter": 2` (2025–2026, second love); ask Jeff which chapter a new poem belongs to rather than guessing
 4. **Summary**: Provides a detailed report of all changes made
 
 **Implementation**: When this command is run, Claude should:

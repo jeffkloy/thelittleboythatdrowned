@@ -7,19 +7,17 @@ import TagFilters from './components/TagFilters';
 import PoemList from './components/PoemList';
 import PoemView from './components/PoemView';
 import { usePoems } from './hooks/usePoems';
-import { addMdExtension, cleanPoemTitle } from './lib/urls';
+import { addMdExtension, cleanPoemTitle, TITULAR_FILENAME } from './lib/urls';
 
 type NavContentProps = {
   allTags: { tag: string; count: number }[];
   total: number;
   activeTags: Set<string>;
   setActiveTags: (s: Set<string>) => void;
-  poems: { filename: string; tags: string[] }[];
+  poems: { filename: string; tags: string[]; chapter?: number }[];
   activeFilename: string | null;
   onSelect: (f: string) => void;
 };
-
-const TITULAR_FILENAME = 'How The Little Boy Drowned.md';
 
 /** Shared nav content for both desktop sidebar and mobile drawer. */
 export function NavContent({
@@ -163,9 +161,13 @@ export default function App() {
           <div className="left">© {new Date().getFullYear()}</div>
           <div className="center">The Little Boy That Drowned</div>
           <div className="right">
-            {lastUpdated ? `Last edit · ${lastUpdated}` : '@jeffkloy'}
+            {lastUpdated ? `Completed · ${lastUpdated}` : '@jeffkloy'}
           </div>
         </div>
+        <p className="foot-crisis">
+          In crisis? Call or text <a href="tel:988">988</a> · Substance use help:{' '}
+          <a href="tel:18006624357">1-800-662-4357</a>
+        </p>
       </footer>
     </div>
   );

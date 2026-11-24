@@ -3,6 +3,7 @@
 export interface PoemMetadata {
   filename: string;
   tags: string[];
+  chapter?: number;
 }
 
 // Validate poem metadata structure

@@ -1,7 +1,17 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { usePoem } from '../hooks/usePoem';
-import { cleanPoemTitle } from '../lib/urls';
+import { cleanPoemTitle, TITULAR_FILENAME } from '../lib/urls';
+
+const TIMELINE = [
+  { year: '2007', text: 'The first lines, carried for years without being written down.' },
+  { year: '2009', text: 'The first unrequited love begins.' },
+  { year: '2020', text: 'The pandemic. The poems are finally written.' },
+  { year: '2022', text: 'The first love ends.' },
+  { year: '2023', text: 'A move across the country, from California to New York.' },
+  { year: '2025', text: 'A second love, unrequited or mistaken. In August, this website opens.' },
+  { year: '2026', text: 'The second love ends, and the collection is completed.' },
+];
 
 type Props = {
   filename: string | null;
@@ -58,8 +68,79 @@ export default function PoemView({
   if (!filename) {
     return (
       <article id="poem-display" className="reader-empty" aria-live="polite">
+        <section className="prologue" aria-label="About this collection">
+          <p className="label label--bare">
+            <span className="num">✦</span>Prologue
+          </p>
+          <p>
+            These poems began in 2020, in the long hush of the pandemic, when the world went quiet
+            enough for old things to surface. Some had been waiting since 2007: lines carried for
+            years and never set down until there was finally room to write them.
+          </p>
+          <p>
+            This is the story of my autism and my Borderline Personality Disorder, and of how,
+            together, they pulled me under, into major depression and then into addiction, while I
+            lived through my first unrequited love. It lasted from 2009 until 2022, and in 2023 I
+            moved across the country, from California to New York.
+          </p>
+          <p>
+            Then the water rose again. The newer poems (the lighthouse, a partner's drinking, the
+            futures we planned, the fear of being left) belong to a second love, unrequited or
+            simply mistaken, that lasted a year and a half, from 2025 into 2026.
+          </p>
+          <p className="prologue-coda">The boy drowned. These are what washed ashore.</p>
+        </section>
+
+        <aside className="content-note" aria-label="Content note and crisis resources">
+          <p>
+            <strong>A note before reading.</strong> These poems speak openly about suicide,
+            self-harm, depression, and addiction. If you are struggling, you are not alone.
+          </p>
+          <ul>
+            <li>
+              <a href="tel:988">Call</a> or <a href="sms:988">text</a> <strong>988</strong>,
+              the Suicide &amp; Crisis Lifeline
+            </li>
+            <li>
+              Text <strong>HOME</strong> to <a href="sms:741741">741741</a>, the Crisis Text Line
+            </li>
+            <li>
+              Call <a href="tel:18006624357">1-800-662-4357</a>, SAMHSA's free, confidential
+              helpline for substance use
+            </li>
+            <li>
+              In an emergency, call <a href="tel:911">911</a>, or <a href="tel:112">112</a> from any
+              mobile phone
+            </li>
+          </ul>
+        </aside>
+
+        <section className="timeline" aria-labelledby="timeline-label">
+          <p className="label" id="timeline-label">
+            <span className="num">✦</span>Timeline
+          </p>
+          <ol>
+            {TIMELINE.map((t) => (
+              <li key={t.year}>
+                <span className="year">{t.year}</span>
+                <span className="event">{t.text}</span>
+              </li>
+            ))}
+          </ol>
+        </section>
         <p className="welcome-message">
           Select a poem from the list to begin your journey, or wander through the themes.
+        </p>
+        <p className="latest-poem-hint">
+          Begin at the beginning ·{' '}
+          <button
+            type="button"
+            className="latest-poem-link"
+            onClick={() => onSelect(TITULAR_FILENAME)}
+            aria-label={`Start from the beginning: ${cleanPoemTitle(TITULAR_FILENAME)}`}
+          >
+            {cleanPoemTitle(TITULAR_FILENAME)}
+          </button>
         </p>
         {latestPoem && (
           <p className="latest-poem-hint">
