@@ -138,7 +138,7 @@ export default function PoemView({
           Select a poem from the list to begin your journey, or wander through the themes.
         </p>
         <p className="latest-poem-hint">
-          Begin at the beginning ·{' '}
+          Start at the beginning ·{' '}
           <button
             type="button"
             className="latest-poem-link"
