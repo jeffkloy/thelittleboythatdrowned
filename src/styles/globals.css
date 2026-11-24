@@ -385,19 +385,19 @@ a:focus-visible,
 
 /* ---------- Poem index (numbered two-column) ---------- */
 .index-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* Multi-column so poems read down the left column, then down the right */
+  columns: 2;
   column-gap: 22px;
-  row-gap: 0;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 @media (max-width: 560px) {
-  .index-grid { grid-template-columns: 1fr; }
+  .index-grid { columns: 1; }
 }
 
 .index-item {
+  break-inside: avoid;
   display: grid;
   grid-template-columns: 28px 1fr;
   gap: 12px;
