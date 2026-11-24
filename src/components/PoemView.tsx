@@ -89,7 +89,10 @@ export default function PoemView({
             futures planned, the fear of being abandoned, etc.) belong to a second love, unrequited
             or simply mistaken for cherishment, that lasted a year and a half, from 2025 into 2026.
           </p>
-          <p className="prologue-coda">The boy drowned. These are what washed ashore.</p>
+          <p className="prologue-coda">
+            This is a story about a boy that almost fatally drowned. He went under more than once,
+            but survived. The boy is still here, and these poems are what carried him back up.
+          </p>
         </section>
 
         <aside className="content-note" aria-label="Content note and crisis resources">
