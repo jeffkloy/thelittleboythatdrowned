@@ -150,7 +150,7 @@ export default function PoemView({
         </p>
         {latestPoem && (
           <p className="latest-poem-hint">
-            Or start with the resolution ·{' '}
+            Or start at the resolution ·{' '}
             <button
               type="button"
               className="latest-poem-link"
