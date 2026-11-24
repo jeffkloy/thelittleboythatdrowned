@@ -79,14 +79,15 @@ export default function PoemView({
           </p>
           <p>
             This is the story of my autism and my Borderline Personality Disorder, and of how,
-            together, they pulled me under, into major depression and then into addiction, while I
-            lived through my first unrequited love. It lasted from 2009 until 2022, and in 2023 I
-            moved across the country, from California to New York.
+            together, they pulled me under, into major depression and then into addiction and a
+            string of suicide attempts, while I lived through my first unrequited love. It lasted
+            from 2009 until 2022, and in 2023, I moved across the country, from California to New
+            York in search of new beginnings.
           </p>
           <p>
             Then the water rose again. The newer poems (the lighthouse, a partner's drinking, the
-            futures we planned, the fear of being left) belong to a second love, unrequited or
-            simply mistaken, that lasted a year and a half, from 2025 into 2026.
+            futures planned, the fear of being abandoned, etc.) belong to a second love, unrequited
+            or simply mistaken for cherishment, that lasted a year and a half, from 2025 into 2026.
           </p>
           <p className="prologue-coda">The boy drowned. These are what washed ashore.</p>
         </section>
@@ -144,12 +145,12 @@ export default function PoemView({
         </p>
         {latestPoem && (
           <p className="latest-poem-hint">
-            Or start with the latest ·{' '}
+            Or start with the resolution ·{' '}
             <button
               type="button"
               className="latest-poem-link"
               onClick={() => onSelect(latestPoem)}
-              aria-label={`Read latest poem: ${cleanPoemTitle(latestPoem)}`}
+              aria-label={`Read the resolution: ${cleanPoemTitle(latestPoem)}`}
             >
               {cleanPoemTitle(latestPoem)}
             </button>
