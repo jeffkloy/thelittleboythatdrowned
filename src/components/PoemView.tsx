@@ -6,7 +6,7 @@ import { cleanPoemTitle, TITULAR_FILENAME } from '../lib/urls';
 const TIMELINE = [
   {
     year: '2009',
-    text: 'The first unrequited love begins, and the first lines are carried for years without being written down.',
+    text: 'The first unrequited love begins, and the first lines are carried for years without being written.',
   },
   { year: '2020', text: 'The pandemic. The poems are finally written.' },
   { year: '2022', text: 'The first love ends.' },
