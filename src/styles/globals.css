@@ -110,6 +110,8 @@ a:focus-visible,
   background: var(--ink-2);
 }
 .hero-eyebrow .by strong { color: var(--ink); font-weight: 600; }
+.hero-eyebrow .by-link { color: inherit; text-decoration: underline; text-decoration-color: var(--tang); text-underline-offset: 3px; }
+.hero-eyebrow .by-link:hover { color: var(--tang); }
 .hero-eyebrow .tag { color: var(--tang); font-weight: 600; }
 
 .hero h1 {

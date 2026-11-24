@@ -16,7 +16,7 @@ export default function Hero({ total, themeCount, lastUpdated }: Props) {
         <div className="hero-eyebrow">
           <span className="line" aria-hidden="true"></span>
           <span className="by">
-            A collection by <strong>@jeffkloy</strong>
+            A collection by <strong>@<a href="https://jeff.kloy.nyc" className="by-link">jeffkloy</a></strong>
           </span>
           <span className="tag">— chapters finished</span>
         </div>
