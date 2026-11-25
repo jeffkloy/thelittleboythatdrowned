@@ -33,7 +33,7 @@ This is a poetry website built with React 19 + Vite + TypeScript that displays p
 # Install dependencies
 npm install
 
-# Start development server (runs on http://localhost:5173/thelittleboythatdrowned/)
+# Start development server (runs on http://localhost:5173/)
 npm run dev
 
 # Build for production
@@ -74,8 +74,8 @@ npm run typecheck
 
 ### Routing
 - Single-page application with client-side routing
-- Base path configured as `/thelittleboythatdrowned/` for GitHub Pages
-- 404.html fallback ensures SPA routing works on GitHub Pages
+- Base path is `/` (served from custom domain jkpoetry.kloy.nyc)
+- 404.html (copied from index.html by the deploy workflow) ensures SPA routing works on GitHub Pages
 
 ### State Management
 - React hooks for local state (useState, useEffect, useMemo)
@@ -87,7 +87,7 @@ npm run typecheck
 - GitHub Actions workflow (`.github/workflows/deploy.yml`) handles automated deployment
 - Builds on push to `main` branch
 - Deploys to `gh-pages` branch
-- Base path must match repository name for GitHub Pages
+- Custom domain is set in repo Pages settings; base path stays `/`
 
 ## Performance Optimizations
 
